@@ -58,3 +58,5 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+
+// keytool -genkey -v -keystore C:\Users\LENOVO\keystore\multikart-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload

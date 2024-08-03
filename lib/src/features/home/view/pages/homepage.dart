@@ -1,5 +1,8 @@
 import 'package:amarsolution_multikart/src/core/enums/app_enum.dart';
+import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
+import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
+import 'package:amarsolution_multikart/src/features/category/model/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
@@ -53,7 +56,7 @@ class _HomepageState extends State<Homepage> {
                       bottom: AppBar(
                         // Prevents the back button from appearing
                         automaticallyImplyLeading: false,
-                        toolbarHeight: 50,
+                        toolbarHeight: 65,
                         title: TabBar(
                           indicatorColor: kPrimaryColor,
                           labelColor: kPrimaryColor,
@@ -64,21 +67,27 @@ class _HomepageState extends State<Homepage> {
                             color: kPrimaryColor,
                             fontWeight: FontWeight.bold,
                           ),
-                          indicator: const HomepageTabIndicator(
-                            indicatorSize: IndicatorSize.full,
-                            indicatorHeight: 4.0,
-                            indicatorColor: kPrimaryColor,
+                          labelPadding: const EdgeInsets.symmetric(
+                            horizontal: 6,
                           ),
+                          padding: EdgeInsets.zero,
+                          indicatorPadding: EdgeInsets.zero,
+                          indicatorSize: TabBarIndicatorSize.label,
+                          overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+                          indicator: const BoxDecoration(),
                           tabs: List.generate(
                               homepageController.categoryList.length, (index) {
                             if (index == 0) {
-                              return const Tab(
-                                text: 'All',
+                              return _TabItem(
+                                category: CategoryModel(
+                                  categoryName: "All",
+                                  image: "",
+                                ),
                               );
                             } else {
-                              return Tab(
-                                text:
-                                    '${homepageController.categoryList[index].categoryName}',
+                              return _TabItem(
+                                category:
+                                    homepageController.categoryList[index],
                               );
                             }
                           }),
@@ -174,9 +183,9 @@ class _AppBarActions extends StatelessWidget {
     ];
   }
 
-  void _onSearch(){
+  void _onSearch() {
     Get.to(
-          () => SearchPage(
+      () => SearchPage(
         onSearch: (value) {
           /// To set search text in product controller
           Get.find<ProductController>().updateSearchText(value);
@@ -185,7 +194,7 @@ class _AppBarActions extends StatelessWidget {
           Get
             ..back()
             ..to(
-                  () => ProductPageWithSearch(
+              () => ProductPageWithSearch(
                 api: Api.productList,
               ),
             );
@@ -224,6 +233,38 @@ class _ActionItem extends StatelessWidget {
   }
 }
 
+class _TabItem extends StatelessWidget {
+  final CategoryModel category;
+
+  const _TabItem({
+    required this.category,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        CachedNetworkImageBuilder(
+          imgURl: category.image ?? '',
+          borderRadius: BorderRadius.circular(100),
+          height: 45,
+          width: 45,
+          fit: BoxFit.cover,
+        ),
+        const SizedBox(height: 2),
+        Text(
+          category.categoryName.toString().length > 6
+              ? category.categoryName.toString().substring(0, 6)
+              : category.categoryName.toString(),
+          maxLines: 1,
+          style: context.bodyMedium(),
+        ),
+      ],
+    );
+  }
+}
+
 class _HomepageLoadingWidget extends StatelessWidget {
   const _HomepageLoadingWidget();
 
@@ -249,8 +290,7 @@ class _HomepageLoadingWidget extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: 20,
-                itemBuilder: (context, int index) =>
-                const KShimmerContainer(
+                itemBuilder: (context, int index) => const KShimmerContainer(
                   height: 20,
                   width: 80,
                   borderRadius: 8,
