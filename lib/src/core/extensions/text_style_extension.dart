@@ -66,7 +66,7 @@ extension TextStyleExtension on BuildContext {
   TextStyle bodyLarge({
     FontWeight fontWeight = FontWeight.w400,
     double fontSize = 14,
-    Color color = kGreyTextColor,
+    Color color = kGrey,
   }) {
     final key = 'bodyLarge_${fontWeight}_${fontSize}_$color';
     return _memoizedTextStyles.putIfAbsent(key, () {
@@ -85,7 +85,7 @@ extension TextStyleExtension on BuildContext {
   TextStyle bodyMedium({
     FontWeight fontWeight = FontWeight.w400,
     double fontSize = 12,
-    Color color = kGreyTextColor,
+    Color color = kGrey,
   }) {
     final key = 'bodyMedium_${fontWeight}_${fontSize}_$color';
     return _memoizedTextStyles.putIfAbsent(key, () {
@@ -104,7 +104,7 @@ extension TextStyleExtension on BuildContext {
   TextStyle bodySmall({
     FontWeight fontWeight = FontWeight.w400,
     double fontSize = 10,
-    Color color = kGreyTextColor,
+    Color color = kGrey,
   }) {
     final key = 'bodySmall_${fontWeight}_${fontSize}_$color';
     return _memoizedTextStyles.putIfAbsent(key, () {

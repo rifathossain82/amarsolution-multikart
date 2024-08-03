@@ -31,19 +31,7 @@ class AppTheme {
       backgroundColor: kPrimaryColor,
       foregroundColor: kWhite,
     ),
-    textTheme: GoogleFonts.interTextTheme(Typography.blackCupertino),
-    checkboxTheme: const CheckboxThemeData(
-      fillColor: MaterialStatePropertyAll(kPrimaryColor),
-      checkColor: MaterialStatePropertyAll(kWhite),
-      side: BorderSide(color: kGrey),
-    ),
-    cardTheme: CardTheme(
-      color: kWhite,
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-      ),
-    ),
+    textTheme: GoogleFonts.latoTextTheme(Typography.blackCupertino),
     iconTheme: const IconThemeData(
       color: kGrey,
     ),
