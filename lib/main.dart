@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: AppConstants.appName,
       theme: AppTheme.lightTheme,
-      initialRoute: RouteGenerator.splash,
+      initialRoute: RouteGenerator.dashboard,
       getPages: RouteGenerator.routes,
       initialBinding: AppBindings(),
     );
