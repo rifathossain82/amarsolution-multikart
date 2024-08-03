@@ -1,4 +1,5 @@
 import 'package:amarsolution_multikart/src/core/enums/app_enum.dart';
+import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
@@ -16,6 +17,7 @@ import 'package:amarsolution_multikart/src/features/home/view/widgets/new_arriva
 import 'package:amarsolution_multikart/src/features/product/controller/product_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/view/pages/product_page_with_search.dart';
 import 'package:amarsolution_multikart/src/features/search/view/pages/search_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -35,8 +37,8 @@ class _HomepageState extends State<Homepage> {
           : homepageController.categoryList.isEmpty
               ? Scaffold(
                   appBar: AppBar(
-                    leading: const _HomepageAppBarIconWidget(),
-                    title: const _HomepageSearchWidget(),
+                    leading: const _AppBarLeadingWidget(),
+                    title: const _AppBarTitleWidget(),
                   ),
                   body: const HomepageAllWidget(),
                 )
@@ -45,8 +47,9 @@ class _HomepageState extends State<Homepage> {
                   initialIndex: 0,
                   child: Scaffold(
                     appBar: AppBar(
-                      leading: const _HomepageAppBarIconWidget(),
-                      title: const _HomepageSearchWidget(),
+                      leading: const _AppBarLeadingWidget(),
+                      title: const _AppBarTitleWidget(),
+                      actions: const _AppBarActions().buildActions(context),
                       bottom: AppBar(
                         // Prevents the back button from appearing
                         automaticallyImplyLeading: false,
@@ -102,69 +105,8 @@ class _HomepageState extends State<Homepage> {
   }
 }
 
-class _HomepageSearchWidget extends StatelessWidget {
-  const _HomepageSearchWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Get.to(
-          () => SearchPage(
-            onSearch: (value) {
-              /// To set search text in product controller
-              Get.find<ProductController>().updateSearchText(value);
-
-              /// For first time we need to close the search page and open product page
-              Get
-                ..back()
-                ..to(
-                  () => ProductPageWithSearch(
-                    api: Api.productList,
-                  ),
-                );
-            },
-          ),
-        );
-      },
-      child: Container(
-        height: 38,
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.symmetric(
-          horizontal: 12,
-        ),
-        decoration: BoxDecoration(
-          color: kWhite,
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: kPrimaryColor,
-            width: 1.5,
-          ),
-        ),
-        child: Row(
-          children: [
-            const Icon(
-              Icons.search,
-              size: 20,
-            ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: Text(
-                'Search...',
-                style: context.appTextTheme.titleSmall?.copyWith(
-                  color: kGrey,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _HomepageAppBarIconWidget extends StatelessWidget {
-  const _HomepageAppBarIconWidget();
+class _AppBarLeadingWidget extends StatelessWidget {
+  const _AppBarLeadingWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +116,109 @@ class _HomepageAppBarIconWidget extends StatelessWidget {
         horizontal: 0,
       ),
       child: Image.asset(
-        AssetPath.appLogo,
+        AssetPath.menu,
+      ),
+    );
+  }
+}
+
+class _AppBarTitleWidget extends StatelessWidget {
+  const _AppBarTitleWidget();
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      AppConstants.appName,
+      style: GoogleFonts.blackOpsOne(
+        fontWeight: FontWeight.w500,
+        fontSize: 22,
+        foreground: Paint()
+          ..shader = const LinearGradient(
+            colors: <Color>[kPrimaryColor, kBlackLight],
+          ).createShader(
+            const Rect.fromLTWH(0.0, 0.0, 200.0, 70.0),
+          ),
+      ),
+    );
+  }
+}
+
+class _AppBarActions extends StatelessWidget {
+  const _AppBarActions();
+
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      _ActionItem(
+        onPressed: _onSearch,
+        iconData: Icons.search,
+      ),
+      _ActionItem(
+        onPressed: () {
+          // Handle search action
+        },
+        iconData: Icons.notifications_none,
+      ),
+      _ActionItem(
+        onPressed: () {
+          // Handle search action
+        },
+        iconData: Icons.favorite_border,
+      ),
+      _ActionItem(
+        onPressed: () {
+          // Handle search action
+        },
+        iconData: Icons.shopping_cart_outlined,
+      ),
+      const SizedBox(width: 8),
+    ];
+  }
+
+  void _onSearch(){
+    Get.to(
+          () => SearchPage(
+        onSearch: (value) {
+          /// To set search text in product controller
+          Get.find<ProductController>().updateSearchText(value);
+
+          /// For first time we need to close the search page and open product page
+          Get
+            ..back()
+            ..to(
+                  () => ProductPageWithSearch(
+                api: Api.productList,
+              ),
+            );
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
+class _ActionItem extends StatelessWidget {
+  final VoidCallback onPressed;
+  final IconData iconData;
+
+  const _ActionItem({
+    required this.onPressed,
+    required this.iconData,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.all(6.0),
+        child: Icon(
+          iconData,
+          size: 20,
+        ),
       ),
     );
   }
@@ -188,8 +232,8 @@ class _HomepageLoadingWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        leading: const _HomepageAppBarIconWidget(),
-        title: const _HomepageSearchWidget(),
+        leading: const _AppBarLeadingWidget(),
+        title: const _AppBarTitleWidget(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -205,7 +249,8 @@ class _HomepageLoadingWidget extends StatelessWidget {
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: 20,
-                itemBuilder: (context, int index) => const KShimmerContainer(
+                itemBuilder: (context, int index) =>
+                const KShimmerContainer(
                   height: 20,
                   width: 80,
                   borderRadius: 8,

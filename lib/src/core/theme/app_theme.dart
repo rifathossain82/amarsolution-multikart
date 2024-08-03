@@ -13,8 +13,8 @@ class AppTheme {
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: kScaffoldBackgroundColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: kPrimaryColor,
-      foregroundColor: kWhite,
+      backgroundColor: kWhite,
+      foregroundColor: kBlackLight,
       elevation: 0,
       titleTextStyle: GoogleFonts.inter(
         fontSize: 18,
