@@ -1,3 +1,4 @@
+import 'package:amarsolution_multikart/src/features/home/view/pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
@@ -13,8 +14,8 @@ class DashboardPage extends StatefulWidget {
 class _DashboardPageState extends State<DashboardPage> {
   final dashboardController = Get.find<DashboardController>();
 
-  final pages = [
-    Container(),
+  final pages = <Widget>[
+    const Homepage(),
     Container(),
     Container(),
     Container(),

@@ -1,15 +1,23 @@
 enum LocalStorageKey {
   token,
+  userId,
+  cart,
+  isGuestCheckout,
 }
 
-enum Status {
-  initial,
-  loading,
-  success,
-  failure,
+enum IndicatorSize {
+  tiny,
+  normal,
+  full,
 }
 
-enum FormStatus{
-  add,
-  update,
+enum ProductsViewType {
+  list,
+  grid,
+}
+
+enum Gender {
+  male,
+  female,
+  others,
 }
