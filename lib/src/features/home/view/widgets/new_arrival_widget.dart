@@ -5,7 +5,6 @@ import 'package:amarsolution_multikart/src/core/network/api.dart';
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 import 'package:amarsolution_multikart/src/core/widgets/stock_out_text_widget.dart';
 import 'package:amarsolution_multikart/src/features/home/controller/homepage_controller.dart';
 import 'package:amarsolution_multikart/src/features/home/view/widgets/homepage_product_loading_widget.dart';
@@ -14,7 +13,7 @@ import 'package:amarsolution_multikart/src/features/product/model/product_model.
 import 'package:amarsolution_multikart/src/features/product/view/pages/product_details_page.dart';
 import 'package:amarsolution_multikart/src/features/product/view/pages/product_page.dart';
 
-const double newArrivalItemHeight = 150;
+const double newArrivalItemHeight = 180;
 const double newArrivalItemWidth = 100;
 
 class NewArrivalWidget extends StatelessWidget {
@@ -34,11 +33,8 @@ class NewArrivalWidget extends StatelessWidget {
           : homepageController.newArrivalProductList.isEmpty
               ? const SizedBox()
               : Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: kWhite,
-                    boxShadow: [
-                      KBoxShadow.itemShadow(),
-                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,6 +98,7 @@ class _NewArrivalItemWidget extends StatelessWidget {
           );
         },
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               alignment: Alignment.center,
@@ -123,10 +120,38 @@ class _NewArrivalItemWidget extends StatelessWidget {
             ),
             const SizedBox(height: 5),
             Text(
-              '${AppConstants.currencySymbol} ${product.newPrice ?? 0.0}',
+              product.productName ?? '',
               maxLines: 1,
-              style: context.appTextTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.w600,
+              overflow: TextOverflow.ellipsis,
+              style: context.appTextTheme.titleSmall,
+            ),
+            const SizedBox(height: 4),
+            RichText(
+              maxLines: 1,
+              softWrap: false,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${AppConstants.currencySymbol}${product.newPrice ?? 0.0}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: kBlackLight,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '   ${AppConstants.currencySymbol}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      color: kGrey,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${product.oldPrice ?? 0.0}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      color: kGrey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

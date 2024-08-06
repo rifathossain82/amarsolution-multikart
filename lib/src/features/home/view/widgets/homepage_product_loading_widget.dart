@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_shimmer_container.dart';
 
 class HomepageProductLoadingWidget extends StatelessWidget {
@@ -9,20 +8,17 @@ class HomepageProductLoadingWidget extends StatelessWidget {
   final double width;
 
   const HomepageProductLoadingWidget({
-    Key? key,
+    super.key,
     required this.height,
     required this.width,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 8),
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: kWhite,
-        boxShadow: [
-          KBoxShadow.itemShadow(),
-        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

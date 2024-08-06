@@ -5,7 +5,6 @@ import 'package:amarsolution_multikart/src/core/network/api.dart';
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 import 'package:amarsolution_multikart/src/core/widgets/stock_out_text_widget.dart';
 import 'package:amarsolution_multikart/src/features/home/controller/homepage_controller.dart';
 import 'package:amarsolution_multikart/src/features/home/model/homepage_category_model.dart';
@@ -16,7 +15,7 @@ import 'package:amarsolution_multikart/src/features/product/view/pages/product_p
 
 import 'homepage_product_loading_widget.dart';
 
-const double categoryItemHeight = 280;
+const double categoryItemHeight = 260;
 const double categoryItemWidth = 150;
 
 class HomepageCategoryWidget extends StatelessWidget {
@@ -45,7 +44,7 @@ class HomepageCategoryWidget extends StatelessWidget {
 }
 
 class _HomepageCategoryLoadingWidget extends StatelessWidget {
-  const _HomepageCategoryLoadingWidget({super.key});
+  const _HomepageCategoryLoadingWidget();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +56,7 @@ class _HomepageCategoryLoadingWidget extends StatelessWidget {
         height: categoryItemHeight,
         width: categoryItemWidth,
       ),
-      separatorBuilder: (context, index) => const SizedBox(height: 15),
+      separatorBuilder: (context, index) => const SizedBox(height: 10),
     );
   }
 }
@@ -66,20 +65,18 @@ class _HomepageCategoryList extends StatelessWidget {
   final List<HomepageCategoryModel> homepageCategoryList;
 
   const _HomepageCategoryList({
-    super.key,
     required this.homepageCategoryList,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
+    return ListView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: homepageCategoryList.length,
       itemBuilder: (context, index) => _CategoryItemWidget(
         homepageCategory: homepageCategoryList[index],
       ),
-      separatorBuilder: (context, index) => const SizedBox(height: 8),
     );
   }
 }
@@ -88,7 +85,6 @@ class _CategoryItemWidget extends StatelessWidget {
   final HomepageCategoryModel homepageCategory;
 
   const _CategoryItemWidget({
-    super.key,
     required this.homepageCategory,
   });
 
@@ -97,12 +93,10 @@ class _CategoryItemWidget extends StatelessWidget {
     return homepageCategory.products!.isEmpty
         ? const SizedBox()
         : Container(
-            margin: const EdgeInsets.only(top: 8),
-            decoration: BoxDecoration(
+            margin: const EdgeInsets.only(top: 12),
+            padding: const EdgeInsets.only(top: 10),
+            decoration: const BoxDecoration(
               color: kWhite,
-              boxShadow: [
-                KBoxShadow.itemShadow(),
-              ],
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -149,7 +143,7 @@ class _CategoryItemWidget extends StatelessWidget {
 class _CategoryProductItemWidget extends StatelessWidget {
   final ProductModel product;
 
-  const _CategoryProductItemWidget({super.key, required this.product});
+  const _CategoryProductItemWidget({required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -164,6 +158,7 @@ class _CategoryProductItemWidget extends StatelessWidget {
       child: SizedBox(
         width: categoryItemWidth,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               alignment: Alignment.center,
@@ -171,7 +166,7 @@ class _CategoryProductItemWidget extends StatelessWidget {
                 CachedNetworkImageBuilder(
                   imgURl: product.image ?? '',
                   borderRadius: BorderRadius.circular(8),
-                  height: categoryItemHeight * 0.7,
+                  height: categoryItemHeight * 0.75,
                   width: categoryItemWidth,
                   fit: BoxFit.cover,
                 ),
@@ -193,10 +188,33 @@ class _CategoryProductItemWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: context.appTextTheme.titleSmall,
             ),
-            Text(
-              '${AppConstants.currencySymbol} ${product.newPrice}',
-              style: context.appTextTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
+            const SizedBox(height: 4),
+            RichText(
+              maxLines: 1,
+              softWrap: false,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${AppConstants.currencySymbol}${product.newPrice ?? 0.0}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: kBlackLight,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '   ${AppConstants.currencySymbol}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      color: kGrey,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${product.oldPrice ?? 0.0}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      color: kGrey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

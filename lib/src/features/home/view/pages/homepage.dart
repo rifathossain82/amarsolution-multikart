@@ -15,7 +15,6 @@ import 'package:amarsolution_multikart/src/features/home/view/widgets/flash_sale
 import 'package:amarsolution_multikart/src/features/home/view/widgets/homepage_all_widget.dart';
 import 'package:amarsolution_multikart/src/features/home/view/widgets/homepage_category_tab_widget.dart';
 import 'package:amarsolution_multikart/src/features/home/view/widgets/homepage_product_loading_widget.dart';
-import 'package:amarsolution_multikart/src/features/home/view/widgets/homepage_tab_indicator.dart';
 import 'package:amarsolution_multikart/src/features/home/view/widgets/new_arrival_widget.dart';
 import 'package:amarsolution_multikart/src/features/product/controller/product_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/view/pages/product_page_with_search.dart';
@@ -28,7 +27,6 @@ class Homepage extends StatefulWidget {
   @override
   State<Homepage> createState() => _HomepageState();
 }
-
 class _HomepageState extends State<Homepage> {
   final homepageController = Get.find<HomepageController>();
 

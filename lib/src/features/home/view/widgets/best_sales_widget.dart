@@ -5,7 +5,6 @@ import 'package:amarsolution_multikart/src/core/network/api.dart';
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 import 'package:amarsolution_multikart/src/core/widgets/stock_out_text_widget.dart';
 import 'package:amarsolution_multikart/src/features/home/controller/homepage_controller.dart';
 import 'package:amarsolution_multikart/src/features/home/view/widgets/homepage_title_text_builder.dart';
@@ -15,7 +14,7 @@ import 'package:amarsolution_multikart/src/features/product/view/pages/product_p
 
 import 'homepage_product_loading_widget.dart';
 
-const double bestSalesItemHeight = 280;
+const double bestSalesItemHeight = 260;
 const double bestSalesItemWidth = 150;
 
 class BestSalesWidget extends StatelessWidget {
@@ -35,12 +34,10 @@ class BestSalesWidget extends StatelessWidget {
           : homepageController.bestSalesProductList.isEmpty
               ? const SizedBox()
               : Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
+                  margin: const EdgeInsets.only(top: 12),
+                  padding: const EdgeInsets.only(top: 10),
+                  decoration: const BoxDecoration(
                     color: kWhite,
-                    boxShadow: [
-                      KBoxShadow.itemShadow(),
-                    ],
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +88,7 @@ class BestSalesWidget extends StatelessWidget {
 class _BestSalesItemWidget extends StatelessWidget {
   final ProductModel product;
 
-  const _BestSalesItemWidget({super.key, required this.product});
+  const _BestSalesItemWidget({required this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -107,6 +104,7 @@ class _BestSalesItemWidget extends StatelessWidget {
       child: SizedBox(
         width: bestSalesItemWidth,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
               alignment: Alignment.center,
@@ -114,7 +112,7 @@ class _BestSalesItemWidget extends StatelessWidget {
                 CachedNetworkImageBuilder(
                   imgURl: product.image ?? '',
                   borderRadius: BorderRadius.circular(8),
-                  height: bestSalesItemHeight * 0.7,
+                  height: bestSalesItemHeight * 0.75,
                   width: bestSalesItemWidth,
                   fit: BoxFit.cover,
                 ),
@@ -136,10 +134,34 @@ class _BestSalesItemWidget extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               style: context.appTextTheme.titleSmall,
             ),
-            Text(
-              '${AppConstants.currencySymbol} ${product.newPrice}',
-              style: context.appTextTheme.titleMedium?.copyWith(
-                fontWeight: FontWeight.w600,
+            const SizedBox(height: 4),
+            RichText(
+              maxLines: 1,
+              softWrap: false,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text:
+                        '${AppConstants.currencySymbol}${product.newPrice ?? 0.0}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      color: kBlackLight,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '   ${AppConstants.currencySymbol}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      color: kGrey,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${product.oldPrice ?? 0.0}',
+                    style: context.appTextTheme.bodySmall?.copyWith(
+                      color: kGrey,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],

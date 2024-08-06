@@ -11,7 +11,7 @@ import 'package:amarsolution_multikart/src/features/category/view/widgets/catego
 import 'package:amarsolution_multikart/src/features/product/view/pages/product_page_with_search.dart';
 
 class CategoryPage extends StatefulWidget {
-  const CategoryPage({Key? key}) : super(key: key);
+  const CategoryPage({super.key});
 
   @override
   State<CategoryPage> createState() => _CategoryPageState();
@@ -24,7 +24,7 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Category'),
+        title: const Text('Categories'),
       ),
       body: Obx(() {
         return categoryController.isCategoryListLoading.value
@@ -128,7 +128,7 @@ class _CategoryPageState extends State<CategoryPage> {
   }) {
     return Obx(() {
       return Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: kWhite,
         ),
         child: Theme(

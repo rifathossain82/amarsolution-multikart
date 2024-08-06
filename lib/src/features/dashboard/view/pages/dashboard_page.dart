@@ -1,3 +1,4 @@
+import 'package:amarsolution_multikart/src/features/category/view/pages/category_page.dart';
 import 'package:amarsolution_multikart/src/features/home/view/pages/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   final pages = <Widget>[
     const Homepage(),
-    Container(),
+    const CategoryPage(),
     Container(),
     Container(),
     Container(),

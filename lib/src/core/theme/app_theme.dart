@@ -17,13 +17,15 @@ class AppTheme {
       foregroundColor: kBlackLight,
       elevation: 0,
       titleTextStyle: GoogleFonts.inter(
-        fontSize: 18,
+        fontSize: 16,
+        color: kBlackLight,
+        fontWeight: FontWeight.w600,
       ),
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
 
         /// Status bar brightness (optional)
-        statusBarIconBrightness: Brightness.light, // For Android (light icons)
+        statusBarIconBrightness: Brightness.dark, // For Android (light icons)
         statusBarBrightness: Brightness.light, // For iOS (dark icons)
       ),
     ),

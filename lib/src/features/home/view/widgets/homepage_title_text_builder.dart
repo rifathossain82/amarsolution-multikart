@@ -17,8 +17,8 @@ class HomepageTitleTextBuilder extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(
         left: 15,
-        right: 0,
-        top: 15,
+        right: 15,
+        top: 0,
         bottom: 0,
       ),
       child: Row(
@@ -28,7 +28,7 @@ class HomepageTitleTextBuilder extends StatelessWidget {
               text,
               maxLines: 1,
               textAlign: TextAlign.start,
-              style: context.appTextTheme.titleMedium?.copyWith(
+              style: context.appTextTheme.titleSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -40,25 +40,16 @@ class HomepageTitleTextBuilder extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 8,
+                vertical: 2,
               ),
-              child: Row(
-                children: [
-                  Text(
-                    'All',
-                    maxLines: 1,
-                    textAlign: TextAlign.end,
-                    style: context.appTextTheme.bodyMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: kGrey,
-                    ),
-                  ),
-                  const SizedBox(width: 3),
-                  const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 14,
-                    color: kGrey,
-                  ),
-                ],
+              child: Text(
+                'See All',
+                maxLines: 1,
+                textAlign: TextAlign.end,
+                style: context.appTextTheme.bodySmall?.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color: kPrimaryColor,
+                ),
               ),
             ),
           ),
