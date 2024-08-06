@@ -22,29 +22,30 @@ class SliderWidget extends StatelessWidget {
           : homepageController.sliderList.isEmpty
               ? const SizedBox()
               : Container(
-                  padding: const EdgeInsets.only(
-                    top: 20,
+                  margin: const EdgeInsets.only(
+                    top: 10,
                   ),
-                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(12.0),
+                  color: kWhite,
                   width: context.screenWidth,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    clipBehavior: Clip.none,
+                  height: 200,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CarouselSliderWidget(
                         onPageChanged: (index, reason) {
                           homepageController.updateSliderIndex(index);
                         },
                         items: homepageController.sliderList,
-                        builder: (item) =>
-                            _SliderItemWidget(imgUrl: item.image ?? ''),
-                      ),
-                      Positioned(
-                        bottom: 10,
-                        child: _SliderIndicatorWidget(
-                          length: homepageController.sliderList.length,
-                          currentIndex: homepageController.sliderIndex.value,
+                        builder: (item) => _SliderItemWidget(
+                          imgUrl: item.image ?? '',
                         ),
+                      ),
+                      const SizedBox(height: 8),
+                      _SliderIndicatorWidget(
+                        length: homepageController.sliderList.length,
+                        currentIndex: homepageController.sliderIndex.value,
                       ),
                     ],
                   ),
@@ -58,7 +59,6 @@ class _SliderIndicatorWidget extends StatelessWidget {
   final int currentIndex;
 
   const _SliderIndicatorWidget({
-    super.key,
     required this.length,
     required this.currentIndex,
   });
@@ -66,32 +66,31 @@ class _SliderIndicatorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
+      height: 8,
       width: context.screenWidth,
       alignment: Alignment.center,
-      child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: length,
-          itemBuilder: (context, int index) {
-            return Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                width: currentIndex == index ? 18 : 6,
-                height: 6,
-                margin: const EdgeInsets.symmetric(
-                  vertical: 10.0,
-                  horizontal: 5.0,
+      child: ListView.separated(
+        padding: EdgeInsets.zero,
+        shrinkWrap: true,
+        scrollDirection: Axis.horizontal,
+        itemCount: length,
+        itemBuilder: (context, int index) {
+          return Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: currentIndex == index ? 18 : 6,
+              height: 6,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                  currentIndex == index ? 15 : 30,
                 ),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    currentIndex == index ? 15 : 30,
-                  ),
-                  color: currentIndex == index ? kPrimaryColor : kGreyLight,
-                ),
+                color: currentIndex == index ? kPrimaryColor : kGreyLight,
               ),
-            );
-          }),
+            ),
+          );
+        },
+        separatorBuilder: (context, index) => const SizedBox(width: 10),
+      ),
     );
   }
 }
@@ -100,7 +99,6 @@ class _SliderItemWidget extends StatelessWidget {
   final String imgUrl;
 
   const _SliderItemWidget({
-    super.key,
     required this.imgUrl,
   });
 
@@ -108,7 +106,7 @@ class _SliderItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImageBuilder(
       imgURl: imgUrl,
-      borderRadius: BorderRadius.circular(0),
+      borderRadius: BorderRadius.circular(4),
       fit: BoxFit.cover,
       height: double.infinity,
       width: double.infinity,

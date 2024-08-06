@@ -17,7 +17,7 @@ class CarouselSliderWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        aspectRatio: 2.4,
+        aspectRatio: 2.2,
         viewportFraction: 1,
         initialPage: 0,
         enableInfiniteScroll: true,

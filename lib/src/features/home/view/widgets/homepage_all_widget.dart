@@ -16,10 +16,10 @@ class HomepageAllWidget extends StatelessWidget {
       ),
       children: const [
         SliderWidget(),
-        NewArrivalWidget(),
-        FlashSalesWidget(),
-        BestSalesWidget(),
-        HomepageCategoryWidget(),
+        // NewArrivalWidget(),
+        // FlashSalesWidget(),
+        // BestSalesWidget(),
+        // HomepageCategoryWidget(),
       ],
     );
   }

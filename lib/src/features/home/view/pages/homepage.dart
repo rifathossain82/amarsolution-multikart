@@ -39,6 +39,7 @@ class _HomepageState extends State<Homepage> {
           ? const _HomepageLoadingWidget()
           : homepageController.categoryList.isEmpty
               ? Scaffold(
+                  backgroundColor: kGreyLight,
                   appBar: AppBar(
                     leading: const _AppBarLeadingWidget(),
                     title: const _AppBarTitleWidget(),
@@ -49,6 +50,7 @@ class _HomepageState extends State<Homepage> {
                   length: homepageController.categoryList.length,
                   initialIndex: 0,
                   child: Scaffold(
+                    backgroundColor: kGreyLight,
                     appBar: AppBar(
                       leading: const _AppBarLeadingWidget(),
                       title: const _AppBarTitleWidget(),
@@ -56,7 +58,7 @@ class _HomepageState extends State<Homepage> {
                       bottom: AppBar(
                         // Prevents the back button from appearing
                         automaticallyImplyLeading: false,
-                        toolbarHeight: 65,
+                        toolbarHeight: 75,
                         title: TabBar(
                           indicatorColor: kPrimaryColor,
                           labelColor: kPrimaryColor,
@@ -70,10 +72,14 @@ class _HomepageState extends State<Homepage> {
                           labelPadding: const EdgeInsets.symmetric(
                             horizontal: 6,
                           ),
-                          padding: EdgeInsets.zero,
+                          padding: const EdgeInsets.only(
+                            bottom: 8,
+                          ),
                           indicatorPadding: EdgeInsets.zero,
                           indicatorSize: TabBarIndicatorSize.label,
-                          overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+                          overlayColor: const MaterialStatePropertyAll(
+                            Colors.transparent,
+                          ),
                           indicator: const BoxDecoration(),
                           tabs: List.generate(
                               homepageController.categoryList.length, (index) {
