@@ -28,7 +28,7 @@ class SliderWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   color: kWhite,
                   width: context.screenWidth,
-                  height: 200,
+                  height: 220,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
