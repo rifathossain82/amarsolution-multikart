@@ -7,7 +7,6 @@ import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/features/category/model/category_model.dart';
 
 class CategoryController extends GetxController {
-  final Rx<int> _selectedCategoryIndex = Rx<int>(-1);
   final Rx<int> _selectedSubCategoryIndex = Rx<int>(-1);
 
   var isCategoryListLoading = false.obs;
@@ -15,18 +14,12 @@ class CategoryController extends GetxController {
   final pageNumber = 1.obs;
   var loadedCompleted = true.obs;
 
-  int get selectedCategoryIndex => _selectedCategoryIndex.value;
-
   int get selectedSubCategoryIndex => _selectedSubCategoryIndex.value;
 
   @override
   void onInit() {
     getCategoryList(reload: true);
     super.onInit();
-  }
-
-  void updateCategoryIndex(int index) {
-    _selectedCategoryIndex.value = index;
   }
 
   void updateSubCategoryIndex(int index) {
