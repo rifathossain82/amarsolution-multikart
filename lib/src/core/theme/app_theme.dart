@@ -13,17 +13,19 @@ class AppTheme {
     primaryColor: kPrimaryColor,
     scaffoldBackgroundColor: kScaffoldBackgroundColor,
     appBarTheme: AppBarTheme(
-      backgroundColor: kPrimaryColor,
-      foregroundColor: kWhite,
+      backgroundColor: kWhite,
+      foregroundColor: kBlackLight,
       elevation: 0,
       titleTextStyle: GoogleFonts.inter(
-        fontSize: 18,
+        fontSize: 16,
+        color: kBlackLight,
+        fontWeight: FontWeight.w600,
       ),
       systemOverlayStyle: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
 
         /// Status bar brightness (optional)
-        statusBarIconBrightness: Brightness.light, // For Android (light icons)
+        statusBarIconBrightness: Brightness.dark, // For Android (light icons)
         statusBarBrightness: Brightness.light, // For iOS (dark icons)
       ),
     ),
@@ -31,19 +33,7 @@ class AppTheme {
       backgroundColor: kPrimaryColor,
       foregroundColor: kWhite,
     ),
-    textTheme: GoogleFonts.interTextTheme(Typography.blackCupertino),
-    checkboxTheme: const CheckboxThemeData(
-      fillColor: MaterialStatePropertyAll(kPrimaryColor),
-      checkColor: MaterialStatePropertyAll(kWhite),
-      side: BorderSide(color: kGrey),
-    ),
-    cardTheme: CardTheme(
-      color: kWhite,
-      elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(5),
-      ),
-    ),
+    textTheme: GoogleFonts.latoTextTheme(Typography.blackCupertino),
     iconTheme: const IconThemeData(
       color: kGrey,
     ),

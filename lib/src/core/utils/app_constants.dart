@@ -1,5 +1,5 @@
 class AppConstants {
-  static const String appName = 'AmarSolution Multikart';
+  static const String appName = 'Multikart';
   static const String packageName = 'com.amarsolution.multikart';
-  static const String currency = 'Tk.';
+  static const String currencySymbol = '৳';
 }

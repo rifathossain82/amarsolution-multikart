@@ -52,26 +52,26 @@ class KSearchField extends StatelessWidget {
         suffixIcon: const Icon(
           Icons.arrow_forward_rounded,
           size: 16,
-          color: kGreyTextColor,
+          color: kGrey,
         ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
           borderSide: const BorderSide(
-            color: kGreyTextColor,
+            color: kGrey,
             width: 0.5,
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
           borderSide: const BorderSide(
-            color: kGreyTextColor,
+            color: kGrey,
             width: 0.5,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
           borderSide: const BorderSide(
-            color: kGreyTextColor,
+            color: kGrey,
             width: 0.5,
           ),
         ),
