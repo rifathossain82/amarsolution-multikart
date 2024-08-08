@@ -71,4 +71,26 @@ class AppTheme {
   static void hideStatusBar(){
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   }
+
+  static SystemUiOverlayStyle lightSystemOverlayStyle(){
+    return const SystemUiOverlayStyle(
+      statusBarColor: kPrimaryColor,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: kWhite,
+      systemNavigationBarDividerColor: kWhite,
+    );
+  }
+
+  static SystemUiOverlayStyle darkSystemOverlayStyle(){
+    return const SystemUiOverlayStyle(
+      statusBarColor: kBlack,
+      statusBarIconBrightness: Brightness.light,
+      systemNavigationBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: kWhite,
+      systemNavigationBarDividerColor: kWhite,
+    );
+  }
 }

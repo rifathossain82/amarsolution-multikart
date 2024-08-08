@@ -15,13 +15,6 @@ class UrlLauncherServices {
     _launchUri(uri);
   }
 
-  static void makeCall({required String phoneNumber}) async {
-    final String url = 'tel:$phoneNumber';
-    Uri uri = Uri.parse(url);
-
-    _launchUri(uri);
-  }
-
   static void sendEmail({
     required String email,
     required String message,
@@ -35,11 +28,19 @@ class UrlLauncherServices {
     _launchUri(params);
   }
 
-  static void _launchUri(Uri uri) async {
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    }
-    try {} catch (e) {
+  static void openURL({
+    required String url,
+    LaunchMode launchMode = LaunchMode.platformDefault,
+  }) async {
+    try {
+      Uri uri = Uri.parse(url);
+
+      if (await canLaunchUrl(uri)) {
+        await launchUrl(uri);
+      }
+    } catch (e, stackTrace) {
+      Log.error('$e', stackTrace: stackTrace);
+
       SnackBarService.showSnackBar(
         message: '$e',
         bgColor: failedColor,
@@ -47,18 +48,10 @@ class UrlLauncherServices {
     }
   }
 
-  static void openSite({
-    required String siteURL,
-    LaunchMode launchMode = LaunchMode.inAppWebView,
-  }) async {
+  static void _launchUri(Uri uri) async {
     try {
-      final Uri uri = Uri.parse(siteURL);
-
       if (await canLaunchUrl(uri)) {
-        await launchUrl(
-          uri,
-          mode: launchMode,
-        );
+        await launchUrl(uri);
       }
     } catch (e, stackTrace) {
       Log.error('$e', stackTrace: stackTrace);

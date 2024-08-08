@@ -14,11 +14,11 @@ class ProductsLoadingWidget extends StatelessWidget {
   final ScrollPhysics physics;
 
   const ProductsLoadingWidget({
-    Key? key,
+    super.key,
     required this.viewType,
     this.shrinkWrap = false,
     this.physics = const AlwaysScrollableScrollPhysics(),
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
