@@ -53,8 +53,7 @@ class CategoryModel {
     data['parent_name'] = parentName;
     data['parent_slug'] = parentSlug;
     if (childCategories != null) {
-      data['child_categories'] =
-          childCategories!.map((v) => v.toJson()).toList();
+      data['child_categories'] = childCategories!.map((v) => v.toJson()).toList();
     }
     return data;
   }
