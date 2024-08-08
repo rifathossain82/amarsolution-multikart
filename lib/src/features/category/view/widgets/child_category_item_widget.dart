@@ -3,19 +3,18 @@ import 'package:amarsolution_multikart/src/core/network/api.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
 import 'package:amarsolution_multikart/src/features/category/model/category_model.dart';
-import 'package:amarsolution_multikart/src/features/category/view/pages/child_category_page.dart';
 import 'package:amarsolution_multikart/src/features/product/view/pages/product_page_with_search.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SubCategoryItemWidget extends StatelessWidget {
+class ChildCategoryItemWidget extends StatelessWidget {
   final int index;
-  final CategoryModel subCategory;
+  final CategoryModel childCategory;
 
-  const SubCategoryItemWidget({
+  const ChildCategoryItemWidget({
     super.key,
     required this.index,
-    required this.subCategory,
+    required this.childCategory,
   });
 
   @override
@@ -38,7 +37,7 @@ class SubCategoryItemWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    subCategory.categoryName?.toUpperCase() ?? '',
+                    childCategory.categoryName?.toUpperCase() ?? '',
                     maxLines: 1,
                     style: context.appTextTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w700,
@@ -46,7 +45,7 @@ class SubCategoryItemWidget extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    subCategory.slug ?? '',
+                    childCategory.slug ?? '',
                     maxLines: 1,
                     style: context.appTextTheme.bodySmall,
                   ),
@@ -54,7 +53,7 @@ class SubCategoryItemWidget extends StatelessWidget {
               ),
             ),
             CachedNetworkImageBuilder(
-              imgURl: subCategory.image ?? '',
+              imgURl: childCategory.image ?? '',
               borderRadius: BorderRadius.circular(100),
               width: 60,
               height: 60,
@@ -67,19 +66,12 @@ class SubCategoryItemWidget extends StatelessWidget {
   }
 
   void _onTapCategoryItem() {
-    if (subCategory.childCategories!.isEmpty) {
+    if (childCategory.childCategories!.isEmpty) {
       Get.to(
         () => ProductPageWithSearch(
-          title: '${subCategory.categoryName}',
+          title: '${childCategory.categoryName}',
           api: Api.productList,
-          categoryId: '${subCategory.id}',
-        ),
-      );
-    } else {
-      Get.to(
-        () => ChildCategoryPage(
-          parentCategory: subCategory,
-          subCategory: subCategory.childCategories![index],
+          categoryId: '${childCategory.id}',
         ),
       );
     }

@@ -3,7 +3,7 @@ import 'package:amarsolution_multikart/src/core/extensions/build_context_extensi
 import 'package:amarsolution_multikart/src/core/widgets/k_shimmer_container.dart';
 
 class ProductDetailsLoadingWidget extends StatelessWidget {
-  const ProductDetailsLoadingWidget({Key? key}) : super(key: key);
+  const ProductDetailsLoadingWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class ProductDetailsLoadingWidget extends StatelessWidget {
       child: Column(
         children: [
           KShimmerContainer(
-            height: context.screenHeight * 0.5,
+            height: context.screenHeight * 0.57,
             width: context.screenWidth,
           ),
           Padding(

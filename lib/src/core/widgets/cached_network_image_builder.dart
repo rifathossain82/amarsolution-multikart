@@ -9,6 +9,7 @@ class CachedNetworkImageBuilder extends StatelessWidget {
   final double height;
   final double width;
   final BoxFit fit;
+  final Color backgroundColor;
 
   const CachedNetworkImageBuilder({
     super.key,
@@ -17,6 +18,7 @@ class CachedNetworkImageBuilder extends StatelessWidget {
     this.height = 100,
     this.width = double.infinity,
     this.fit = BoxFit.contain,
+    this.backgroundColor = kWhite,
   });
 
   @override
@@ -29,7 +31,7 @@ class CachedNetworkImageBuilder extends StatelessWidget {
       imageBuilder: (context, imageProvider) => Container(
         decoration: BoxDecoration(
           borderRadius: borderRadius,
-          color: kWhite,
+          color: backgroundColor,
           image: DecorationImage(
             image: imageProvider,
             fit: fit,

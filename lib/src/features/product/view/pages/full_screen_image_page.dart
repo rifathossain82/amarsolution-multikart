@@ -1,6 +1,7 @@
+import 'package:amarsolution_multikart/src/core/theme/app_theme.dart';
+import 'package:amarsolution_multikart/src/features/product/controller/full_screen_image_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:amarsolution_multikart/src/core/theme/app_theme.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
 import 'package:amarsolution_multikart/src/features/product/model/product_details_model.dart';
@@ -20,9 +21,12 @@ class FullScreenImagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fullScreenImageController = Get.put(FullScreenImageController());
+
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 0.0,
+        systemOverlayStyle: AppTheme.darkSystemOverlayStyle(),
       ),
       backgroundColor: kBlack,
       body: SafeArea(
@@ -44,11 +48,11 @@ class FullScreenImagePage extends StatelessWidget {
                       margin: const EdgeInsets.only(
                         top: 0,
                       ),
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: kWhite,
                         shape: BoxShape.circle,
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Icon(
                           Icons.close,
                           size: 18,
@@ -67,7 +71,7 @@ class FullScreenImagePage extends StatelessWidget {
                 controller: controller,
                 itemCount: photos.length,
                 onPageChanged: (int index) {
-                  // productDetailsController.changeIndex(index: index);
+                  fullScreenImageController.updateIndex(index);
                 },
                 itemBuilder: (context, index) => Container(
                   color: kBlackLight,
@@ -75,6 +79,7 @@ class FullScreenImagePage extends StatelessWidget {
                   child: CachedNetworkImageBuilder(
                     imgURl: photos[index].image ?? '',
                     borderRadius: BorderRadius.zero,
+                    backgroundColor: kBlack,
                   ),
                 ),
               ),
@@ -98,7 +103,7 @@ class FullScreenImagePage extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         controller.jumpToPage(index);
-                        // productDetailsController.changeIndex(index: index);
+                        fullScreenImageController.updateIndex(index);
                       },
                       child: Container(
                         width: 40,
