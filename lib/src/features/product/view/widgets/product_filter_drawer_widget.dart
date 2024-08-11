@@ -91,6 +91,21 @@ class ProductFilterDrawerWidget extends StatelessWidget {
                           //     ],
                           //   ),
                           // ),
+                          // SizedBox(
+                          //   width: 210,
+                          //   child: KDropDownFieldBuilder<String>(
+                          //     hintText: 'Sorting',
+                          //     isBorder: false,
+                          //     isExpanded: false,
+                          //     items: sortTypes.keys.toList(),
+                          //     value: productController.selectedSortType.value,
+                          //     onChanged: (key) {
+                          //       productController.updateSortType(key);
+                          //       getProducts(reload: true);
+                          //     },
+                          //     itemBuilder: (key) => Text('${sortTypes[key]}'),
+                          //   ),
+                          // ),
                         ],
                       ),
           ),

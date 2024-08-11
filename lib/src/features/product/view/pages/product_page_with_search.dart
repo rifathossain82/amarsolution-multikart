@@ -1,3 +1,7 @@
+import 'package:amarsolution_multikart/src/core/widgets/cart_icon_widget.dart';
+import 'package:amarsolution_multikart/src/core/widgets/favorite_icon_widget.dart';
+import 'package:amarsolution_multikart/src/features/cart/controller/cart_controller.dart';
+import 'package:amarsolution_multikart/src/features/product/view/widgets/filter_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/enums/app_enum.dart';
@@ -7,13 +11,11 @@ import 'package:amarsolution_multikart/src/core/routes/routes.dart';
 import 'package:amarsolution_multikart/src/core/services/local_storage.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/failure_widget_builder.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_drop_down_field_builder.dart';
 import 'package:amarsolution_multikart/src/features/dashboard/controller/dashboard_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/controller/product_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/product_filter_drawer_widget.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/products_loading_widget.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/products_widget.dart';
-import 'package:amarsolution_multikart/src/features/profile/controller/profile_controller.dart';
 import 'package:amarsolution_multikart/src/features/search/view/pages/search_page.dart';
 
 class ProductPageWithSearch extends StatefulWidget {
@@ -34,6 +36,7 @@ class ProductPageWithSearch extends StatefulWidget {
 
 class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
   final productController = Get.find<ProductController>();
+  final cartController = Get.find<CartController>();
   final ScrollController _scrollController = ScrollController();
 
   final sortTypes = {
@@ -118,47 +121,29 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
         endDrawerEnableOpenDragGesture: false,
         appBar: AppBar(
           titleSpacing: 0,
-          title: _buildAppbarTitleWidget(),
+          title: Text(widget.title ?? ''),
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(48),
             child: Padding(
               padding: const EdgeInsets.only(
-                left: 5,
+                left: 12,
+                right: 12,
                 top: 0,
-                bottom: 5,
+                bottom: 10,
               ),
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 210,
-                    child: KDropDownFieldBuilder<String>(
-                      hintText: 'Sorting',
-                      isBorder: false,
-                      isExpanded: false,
-                      items: sortTypes.keys.toList(),
-                      value: productController.selectedSortType.value,
-                      onChanged: (key) {
-                        productController.updateSortType(key);
-                        getProducts(reload: true);
-                      },
-                      itemBuilder: (key) => Text('${sortTypes[key]}'),
-                    ),
+                  _buildSearchBarWidget(),
+                  const SizedBox(width: 12),
+                  FilterIconButton(
+                    onPressed: () => onPressedFilter(context),
                   ),
-                  const Spacer(),
-                  Builder(builder: (context) {
-                    return IconButton(
-                      onPressed: () => onPressedFilter(context),
-                      icon: const Icon(
-                        Icons.filter_list,
-                      ),
-                    );
-                  }),
                   const SizedBox(width: 8),
                   IconButton(
                     onPressed: changeProductViewType,
                     icon: Icon(
                       productController.selectedProductViewType.value ==
-                              ProductsViewType.list
+                          ProductsViewType.list
                           ? Icons.list
                           : Icons.grid_view,
                     ),
@@ -168,15 +153,16 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
             ),
           ),
           actions: [
-            IconButton(
-              onPressed: () {
+            const FavoriteIconWidget(),
+            const SizedBox(width: 16),
+            CartIconWidget(
+              quantity: cartController.totalCartItems,
+              onTap: () {
                 Get.find<DashboardController>().updateCurrentIndex(2);
                 Get.offAllNamed(RouteGenerator.dashboard);
               },
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-              ),
             ),
+            const SizedBox(width: 16),
           ],
         ),
         body: productController.isProductListLoading.value
@@ -195,63 +181,59 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
     });
   }
 
-  Widget _buildAppbarTitleWidget() {
-    return GestureDetector(
-      onTap: () {
-        Get.to(
-          () => SearchPage(
-            oldSearchText: productController.searchText.value,
-            onSearch: (value) {
-              productController.updateSearchText(value);
-              getProducts(reload: true);
-              Get.back(); // to close the search page
-            },
-          ),
-        );
-      },
-      child: Container(
-        height: 38,
-        alignment: Alignment.centerLeft,
-        decoration: BoxDecoration(
-          color: kWhite,
-          borderRadius: BorderRadius.circular(4),
-          border: Border.all(
-            color: kPrimaryColor,
-            width: 1.5,
-          ),
-        ),
-        child: Row(
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10.0),
-              child: Icon(
-                Icons.search,
-                size: 20,
-              ),
+  Widget _buildSearchBarWidget() {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          Get.to(
+            () => SearchPage(
+              oldSearchText: productController.searchText.value,
+              onSearch: (value) {
+                productController.updateSearchText(value);
+                getProducts(reload: true);
+                Get.back(); // to close the search page
+              },
             ),
-            Expanded(
-              child: Text(
-                productController.searchText.value ??
-                    widget.title ??
-                    'Search...',
-                style: context.appTextTheme.bodyMedium,
-              ),
-            ),
-            if (productController.searchText.value != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: GestureDetector(
-                  onTap: () {
-                    productController.updateSearchText(null);
-                    getProducts(reload: true);
-                  },
-                  child: const Icon(
-                    Icons.close,
-                    size: 20,
-                  ),
+          );
+        },
+        child: Container(
+          height: 42,
+          alignment: Alignment.centerLeft,
+          decoration: BoxDecoration(
+            color: kGreyLight,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          child: Row(
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.0),
+                child: Icon(
+                  Icons.search,
+                  size: 16,
                 ),
               ),
-          ],
+              Expanded(
+                child: Text(
+                  'Search',
+                  style: context.appTextTheme.bodySmall,
+                ),
+              ),
+              if (productController.searchText.value != null)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: GestureDetector(
+                    onTap: () {
+                      productController.updateSearchText(null);
+                      getProducts(reload: true);
+                    },
+                    child: const Icon(
+                      Icons.close,
+                      size: 20,
+                    ),
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
