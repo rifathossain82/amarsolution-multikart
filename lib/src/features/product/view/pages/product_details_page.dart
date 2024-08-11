@@ -1,3 +1,4 @@
+import 'package:amarsolution_multikart/src/core/utils/asset_path.dart';
 import 'package:amarsolution_multikart/src/core/utils/layout_constants.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cart_icon_widget.dart';
 import 'package:amarsolution_multikart/src/core/widgets/favorite_icon_widget.dart';
@@ -9,6 +10,7 @@ import 'package:amarsolution_multikart/src/core/widgets/slider_indicator_widget.
 import 'package:amarsolution_multikart/src/features/cart/controller/cart_controller.dart';
 import 'package:amarsolution_multikart/src/features/cart/model/cart_model.dart';
 import 'package:amarsolution_multikart/src/features/checkout/view/pages/checkout_page.dart';
+import 'package:amarsolution_multikart/src/features/product/view/widgets/bottom_text_button.dart';
 import 'package:amarsolution_multikart/src/features/wishlist/controller/wishlist_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -22,32 +24,18 @@ import 'package:amarsolution_multikart/src/core/services/snack_bar_services.dart
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
-
-// import 'package:amarsolution_multikart/src/core/widgets/cart_icon_widget.dart';
 import 'package:amarsolution_multikart/src/core/widgets/failure_widget_builder.dart';
-
-// import 'package:amarsolution_multikart/src/core/widgets/k_html_widget.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
-
-// import 'package:amarsolution_multikart/src/core/widgets/k_divider.dart';
-// import 'package:amarsolution_multikart/src/core/widgets/price_widget.dart';
-
-// import 'package:amarsolution_multikart/src/features/cart/controller/cart_controller.dart';
-// import 'package:amarsolution_multikart/src/features/cart/model/cart_model.dart';
-// import 'package:amarsolution_multikart/src/features/checkout/view/pages/checkout_page.dart';
 import 'package:amarsolution_multikart/src/features/dashboard/controller/dashboard_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/controller/product_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/controller/variant_selector_bottom_sheet_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/model/product_details_model.dart';
 import 'package:amarsolution_multikart/src/features/product/model/product_model.dart';
 import 'package:amarsolution_multikart/src/features/product/view/pages/full_screen_image_page.dart';
-import 'package:amarsolution_multikart/src/features/product/view/widgets/add_to_cart_button.dart';
-import 'package:amarsolution_multikart/src/features/product/view/widgets/buy_now_button.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/product_details_loading_widget.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/products_loading_widget.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/products_widget.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/variant_selector_bottom_sheet.dart';
-// import 'package:amarsolution_multikart/src/features/wishlist/controller/wishlist_controller.dart';
 
 class ProductDetailsPage extends StatefulWidget {
   final ProductModel product;
@@ -178,22 +166,25 @@ class _ProductDetailsPage extends State<ProductDetailsPage> {
       alignment: Alignment.center,
       child: Row(
         children: [
-          CartIconWidget(
-            quantity: cartController.totalCartItems,
-            onTap: () {
-              Get.find<DashboardController>().updateCurrentIndex(2);
-              Get.offAllNamed(RouteGenerator.dashboard);
-            },
-          ),
-          const SizedBox(width: 15),
           Expanded(
-            child: BuyNowButton(
+            child: BottomIconTextButton(
               onTap: onTapBuyNow,
+              text: "buy now",
+              iconPath: AssetPath.wishlistIcon,
             ),
           ),
+          const VerticalDivider(
+            color: kGrey,
+            indent: 15,
+            endIndent: 15,
+            width: 6,
+          ),
           Expanded(
-            child: AddToCartButton(
+            child: BottomIconTextButton(
               onTap: onTapAddToCart,
+              text: "add to cart",
+              iconPath: AssetPath.cartIcon,
+              color: kPrimaryColor,
             ),
           ),
         ],
@@ -204,7 +195,7 @@ class _ProductDetailsPage extends State<ProductDetailsPage> {
   void onTapBuyNow() {
     var token = LocalStorage.getData(key: LocalStorageKey.token);
     bool isGuestCheckout =
-        LocalStorage.getData(key: LocalStorageKey.isGuestCheckout) as bool;
+        LocalStorage.getData(key: LocalStorageKey.isGuestCheckout) ?? false;
 
     if (token != null || isGuestCheckout) {
       if (productController.productDetails.value!.barcodes!.length > 1) {
