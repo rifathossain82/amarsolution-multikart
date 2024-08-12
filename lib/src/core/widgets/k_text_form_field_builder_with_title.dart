@@ -21,7 +21,7 @@ class KTextFormFieldBuilderWithTitle extends StatelessWidget {
   final double bottomPadding;
 
   const KTextFormFieldBuilderWithTitle({
-    Key? key,
+    super.key,
     required this.title,
     this.controller,
     this.validator,
@@ -38,7 +38,7 @@ class KTextFormFieldBuilderWithTitle extends StatelessWidget {
     this.obscureText = false,
     this.readOnly = false,
     this.bottomPadding = 15,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

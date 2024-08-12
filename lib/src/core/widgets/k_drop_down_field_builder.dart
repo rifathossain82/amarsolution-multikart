@@ -21,6 +21,8 @@ class KDropDownFieldBuilder<T> extends StatelessWidget {
   final bool? obscureValue;
   final bool isBorder;
   final bool isExpanded;
+  final bool filled;
+  final Color? fillColor;
 
   const KDropDownFieldBuilder({
     super.key,
@@ -43,6 +45,8 @@ class KDropDownFieldBuilder<T> extends StatelessWidget {
     this.obscureValue,
     this.isBorder = true,
     this.isExpanded = true,
+    this.filled = false,
+    this.fillColor,
   });
 
   @override
@@ -61,6 +65,8 @@ class KDropDownFieldBuilder<T> extends StatelessWidget {
           horizontal: 15,
           vertical: 12,
         ),
+        fillColor: fillColor,
+        filled: filled,
         border: isBorder ? const OutlineInputBorder() : InputBorder.none,
         hintText: hintText,
         labelText: title,

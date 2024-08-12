@@ -22,6 +22,7 @@ class AssetPath{
   static const String wishlistFilledIcon = 'assets/icons/wishlist_filled.svg';
   static const String profileIcon = 'assets/icons/profile.svg';
   static const String profileFilledIcon = 'assets/icons/profile_filled.svg';
+  static const String filterIcon = 'assets/icons/filter_icon.svg';
 
 
   /// lotties

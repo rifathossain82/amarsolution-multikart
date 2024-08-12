@@ -1,5 +1,6 @@
 import 'package:amarsolution_multikart/src/features/cart/controller/cart_controller.dart';
 import 'package:amarsolution_multikart/src/features/checkout/controller/checkout_controller.dart';
+import 'package:amarsolution_multikart/src/features/product/controller/full_screen_image_controller.dart';
 import 'package:amarsolution_multikart/src/features/search/controller/product_search_controller.dart';
 import 'package:amarsolution_multikart/src/features/wishlist/controller/wishlist_controller.dart';
 import 'package:get/get.dart';
@@ -27,5 +28,6 @@ class AppBindings extends Bindings {
     Get.lazyPut(() => CartController(), fenix: true);
     Get.lazyPut(() => CheckoutController(), fenix: true);
     Get.lazyPut(() => WishlistController(), fenix: true);
+    Get.lazyPut(() => FullScreenImageController(), fenix: true);
   }
 }

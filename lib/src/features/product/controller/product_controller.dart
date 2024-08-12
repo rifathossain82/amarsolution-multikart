@@ -83,12 +83,14 @@ class ProductController extends GetxController {
   void resetFilter() {
     /// reset price range by search summary prices
     if (searchSummary.value != null) {
-      updatePriceRange(
-        RangeValues(
-          searchSummary.value!.minPrice!.toDouble(),
-          searchSummary.value!.maxPrice!.toDouble(),
-        ),
-      );
+      double minPrice = searchSummary.value!.minPrice!.toDouble();
+      double maxPrice = searchSummary.value!.maxPrice!.toDouble();
+
+      if (minPrice < maxPrice) {
+        updatePriceRange(
+          RangeValues(minPrice, maxPrice),
+        );
+      }
     }
 
     selectedBrands.value = [];
@@ -127,8 +129,8 @@ class ProductController extends GetxController {
         "colors": colors,
         "min_price": minPrice,
         "max_price": maxPrice,
-        'per_page' : '20',
-        'page' : '$pageNumber',
+        'per_page': '20',
+        'page': '$pageNumber',
       };
 
       dynamic responseBody = await Network.handleResponse(
@@ -176,12 +178,14 @@ class ProductController extends GetxController {
 
         /// set the price range for filter
         if (searchSummary.value != null) {
-          updatePriceRange(
-            RangeValues(
-              searchSummary.value!.minPrice!.toDouble(),
-              searchSummary.value!.maxPrice!.toDouble(),
-            ),
-          );
+          double minPrice = searchSummary.value!.minPrice!.toDouble();
+          double maxPrice = searchSummary.value!.maxPrice!.toDouble();
+
+          if (minPrice < maxPrice) {
+            updatePriceRange(
+              RangeValues(minPrice, maxPrice),
+            );
+          }
         }
       }
     } catch (e, stackTrace) {
