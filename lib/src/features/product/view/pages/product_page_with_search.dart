@@ -24,11 +24,11 @@ class ProductPageWithSearch extends StatefulWidget {
   final String? categoryId;
 
   const ProductPageWithSearch({
-    Key? key,
+    super.key,
     required this.api,
     this.title,
     this.categoryId,
-  }) : super(key: key);
+  });
 
   @override
   State<ProductPageWithSearch> createState() => _ProductPageWithSearchState();
@@ -38,6 +38,7 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
   final productController = Get.find<ProductController>();
   final cartController = Get.find<CartController>();
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final sortTypes = {
     'default': 'Default',
@@ -78,10 +79,8 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
         sizes: productController.selectedSizes
             .map((size) => '${size.name}')
             .toList(),
-        minPrice:
-            '${productController.priceRangeValues.value?.start.floorToDouble() ?? ''}',
-        maxPrice:
-            '${productController.priceRangeValues.value?.end.floorToDouble() ?? ''}',
+        minPrice: '${productController.priceRangeValues.value?.start.floorToDouble() ?? ''}',
+        maxPrice: '${productController.priceRangeValues.value?.end.floorToDouble() ?? ''}',
       );
     });
   }
@@ -106,6 +105,7 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
   Widget build(BuildContext context) {
     return Obx(() {
       return Scaffold(
+        key: _scaffoldKey,
         endDrawer: ProductFilterDrawerWidget(
           productController: productController,
           onDone: () {
@@ -136,16 +136,27 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
                   _buildSearchBarWidget(),
                   const SizedBox(width: 12),
                   FilterIconButton(
-                    onPressed: () => onPressedFilter(context),
+                    onPressed: onPressedFilter,
                   ),
                   const SizedBox(width: 8),
-                  IconButton(
-                    onPressed: changeProductViewType,
-                    icon: Icon(
-                      productController.selectedProductViewType.value ==
-                          ProductsViewType.list
-                          ? Icons.list
-                          : Icons.grid_view,
+                  GestureDetector(
+                    onTap: changeProductViewType,
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      height: 42,
+                      width: 42,
+                      decoration: BoxDecoration(
+                        color: kPrimaryColor,
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      padding: const EdgeInsets.all(8),
+                      child: Icon(
+                        productController.selectedProductViewType.value ==
+                            ProductsViewType.list
+                            ? Icons.list
+                            : Icons.grid_view,
+                        color: kWhite,
+                      )
                     ),
                   ),
                 ],
@@ -239,8 +250,8 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
     );
   }
 
-  void onPressedFilter(BuildContext context) {
-    Scaffold.of(context).openEndDrawer();
+  void onPressedFilter() {
+    _scaffoldKey.currentState?.openEndDrawer();
   }
 
   void changeProductViewType() {
