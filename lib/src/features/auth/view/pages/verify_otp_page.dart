@@ -1,13 +1,14 @@
 import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
+import 'package:amarsolution_multikart/src/core/utils/color.dart';
+import 'package:amarsolution_multikart/src/features/auth/view/widgets/auth_back_button.dart';
+import 'package:amarsolution_multikart/src/features/auth/view/widgets/auth_circle_shape.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/errors/messages.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_button.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_button_progress_indicator.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_logo.dart';
 import 'package:amarsolution_multikart/src/features/auth/controller/auth_controller.dart';
-import 'package:amarsolution_multikart/src/features/auth/view/widgets/custom_back_button_widget.dart';
 import 'package:amarsolution_multikart/src/features/auth/view/widgets/pin_field_widget.dart';
 
 class VerifyOTPPage extends StatefulWidget {
@@ -31,17 +32,12 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            _verifyOTPPageBody(),
-            const Positioned(
-              top: 15,
-              left: 15,
-              child: CustomBackButton(),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [
+          _verifyOTPPageBody(),
+          const AuthBackButton(),
+          const AuthCircleShape(),
+        ],
       ),
     );
   }
@@ -53,25 +49,31 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
         margin: EdgeInsets.only(
           left: 15,
           right: 15,
-          top: context.screenHeight * 0.08,
-          bottom: context.screenHeight * 0.03,
+          top: context.screenHeight * 0.15,
         ),
         child: Form(
           key: verifyOTPFormKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              /// logo and welcome text
-              const KLogo(),
+              Text(
+                "Hey,\nVerify Now",
+                style: context.titleLarge(
+                  fontSize: 24,
+                  color: kGrey,
+                ),
+              ),
+
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
+                padding: const EdgeInsets.only(
+                  top: 12,
+                  right: 150,
                 ),
                 child: Text(
                   'We have just sent a 6 digit OTP code to your mobile number (${widget.phone})',
-                  textAlign: TextAlign.center,
-                  style: context.appTextTheme.bodySmall,
+                  textAlign: TextAlign.start,
+                  style: context.bodyMedium(),
                 ),
               ),
 
@@ -86,7 +88,7 @@ class _VerifyOTPPageState extends State<VerifyOTPPage> {
                   return authController.isVerifyOTPLoading.value
                       ? const KButtonProgressIndicator()
                       : Text(
-                          'Verify OTP',
+                          'verify otp'.toUpperCase(),
                           style: context.buttonTextStyle(),
                         );
                 }),

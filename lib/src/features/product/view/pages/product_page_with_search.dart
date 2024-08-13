@@ -7,11 +7,9 @@ import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/enums/app_enum.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
 import 'package:amarsolution_multikart/src/core/helpers/helper_methods.dart';
-import 'package:amarsolution_multikart/src/core/routes/routes.dart';
 import 'package:amarsolution_multikart/src/core/services/local_storage.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/failure_widget_builder.dart';
-import 'package:amarsolution_multikart/src/features/dashboard/controller/dashboard_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/controller/product_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/product_filter_drawer_widget.dart';
 import 'package:amarsolution_multikart/src/features/product/view/widgets/products_loading_widget.dart';
@@ -163,17 +161,11 @@ class _ProductPageWithSearchState extends State<ProductPageWithSearch> {
               ),
             ),
           ),
-          actions: [
-            const FavoriteIconWidget(),
-            const SizedBox(width: 16),
-            CartIconWidget(
-              quantity: cartController.totalCartItems,
-              onTap: () {
-                Get.find<DashboardController>().updateCurrentIndex(2);
-                Get.offAllNamed(RouteGenerator.dashboard);
-              },
-            ),
-            const SizedBox(width: 16),
+          actions: const [
+            FavoriteIconWidget(),
+            SizedBox(width: 16),
+            CartIconWidget(),
+            SizedBox(width: 16),
           ],
         ),
         body: productController.isProductListLoading.value

@@ -13,6 +13,7 @@ class SelectableContainer extends StatelessWidget {
   final Color? unSelectedBgColor;
   final Color? selectedBorderColor;
   final Color? unSelectedBorderColor;
+  final bool isDefaultSizeEnabled;
 
   const SelectableContainer({
     super.key,
@@ -27,6 +28,7 @@ class SelectableContainer extends StatelessWidget {
     this.unSelectedBgColor,
     this.selectedBorderColor,
     this.unSelectedBorderColor,
+    this.isDefaultSizeEnabled = false,
   });
 
   @override
@@ -35,6 +37,12 @@ class SelectableContainer extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin: margin,
+        padding: isDefaultSizeEnabled
+            ? const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 8,
+              )
+            : null,
         decoration: BoxDecoration(
             color: isSelected
                 ? selectedBgColor ?? kPrimaryColor
@@ -45,9 +53,8 @@ class SelectableContainer extends StatelessWidget {
                   ? selectedBorderColor ?? kPrimaryColor
                   : unSelectedBorderColor ?? kGreyLight,
               width: 1,
-            )
-        ),
-        alignment: Alignment.center,
+            )),
+        alignment: isDefaultSizeEnabled ? null : Alignment.center,
         height: height,
         width: width,
         child: child,

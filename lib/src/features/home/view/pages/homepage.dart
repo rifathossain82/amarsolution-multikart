@@ -1,7 +1,7 @@
-import 'package:amarsolution_multikart/src/core/enums/app_enum.dart';
 import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
+import 'package:amarsolution_multikart/src/core/widgets/cart_icon_widget.dart';
 import 'package:amarsolution_multikart/src/features/category/model/category_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -177,13 +177,9 @@ class _AppBarActions extends StatelessWidget {
         },
         iconData: Icons.favorite_border,
       ),
-      _ActionItem(
-        onPressed: () {
-          // Handle search action
-        },
-        iconData: Icons.shopping_cart_outlined,
-      ),
-      const SizedBox(width: 8),
+      const SizedBox(width: 6),
+      const CartIconWidget(),
+      const SizedBox(width: 12),
     ];
   }
 

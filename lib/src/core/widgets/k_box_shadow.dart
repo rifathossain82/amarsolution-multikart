@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 
 class KBoxShadow {
   static BoxShadow itemShadow() {
-    return const BoxShadow(
-      offset: Offset(0.0, 2.0),
+    return BoxShadow(
+      offset: const Offset(0.0, 2.0),
       blurRadius: 4,
       spreadRadius: 0,
-      color: kGrey,
+      color: kItemShadowColor,
     );
   }
 }

@@ -25,6 +25,9 @@ const Color kDeepOrange = Color(0xFFFF5F2D);
 const Color kShimmerBaseColor = Color(0xFFE0E0E0);
 const Color kShimmerHighlightColor = Color(0xFFF5F5F5);
 
+Color kShadowColor = const Color(0xFF616161).withOpacity(0.18);
+Color kItemShadowColor = const Color(0xFF000000).withOpacity(0.10);
+
 const List<Color> randomColors = [
   Colors.deepOrange,
   Colors.blue,

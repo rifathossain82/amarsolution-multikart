@@ -91,13 +91,7 @@ class _ProductDetailsPage extends State<ProductDetailsPage> {
           const SizedBox(width: 16),
           const FavoriteIconWidget(),
           const SizedBox(width: 16),
-          CartIconWidget(
-            quantity: cartController.totalCartItems,
-            onTap: () {
-              Get.find<DashboardController>().updateCurrentIndex(2);
-              Get.offAllNamed(RouteGenerator.dashboard);
-            },
-          ),
+          const CartIconWidget(),
           const SizedBox(width: 16),
         ],
       ),

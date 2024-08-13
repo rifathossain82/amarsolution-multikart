@@ -1,3 +1,7 @@
+import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
+import 'package:amarsolution_multikart/src/core/widgets/increment_decrement_widget.dart';
+import 'package:amarsolution_multikart/src/core/widgets/k_divider.dart';
+import 'package:amarsolution_multikart/src/core/widgets/selectable_container.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
@@ -5,10 +9,13 @@ import 'package:amarsolution_multikart/src/core/services/snack_bar_services.dart
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/cached_network_image_builder.dart';
+
 // import 'package:amarsolution_multikart/src/core/widgets/increment_decrement_widget.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_button.dart';
+
 // import 'package:amarsolution_multikart/src/core/widgets/k_divider.dart';
 import 'package:amarsolution_multikart/src/core/widgets/price_widget.dart';
+
 // import 'package:amarsolution_multikart/src/core/widgets/selectable_container.dart';
 import 'package:amarsolution_multikart/src/features/product/controller/variant_selector_bottom_sheet_controller.dart';
 import 'package:amarsolution_multikart/src/features/product/model/product_details_model.dart';
@@ -61,158 +68,160 @@ class VariantSelectorBottomSheet {
                   ),
 
                   /// divider
-                  // const KDivider(height: 20),
+                  const KDivider(height: 20),
 
                   /// colors
-                  // const _TitleTextWidget(title: 'Color'),
-                  // Wrap(
-                  //   spacing: 8,
-                  //   runSpacing: 8,
-                  //   children: List.generate(
-                  //     colorList.length,
-                  //     (index) => SelectableContainer(
-                  //       onTap: () {
-                  //         variantController.updateColor(colorList[index]);
-                  //         variantController.updateVariant(null);
-                  //         variantController.updateQuantity(0);
-                  //         variantListByColor = getSizesByColor(
-                  //           productDetails: productDetails,
-                  //           selectedColor: variantController.selectedColor!,
-                  //         );
-                  //       },
-                  //       isSelected:
-                  //           variantController.selectedColor == colorList[index],
-                  //       child: Text(
-                  //         colorList[index],
-                  //         style: context.appTextTheme.bodyMedium?.copyWith(
-                  //           color: variantController.selectedColor ==
-                  //                   colorList[index]
-                  //               ? kWhite
-                  //               : kBlackLight,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // const SizedBox(height: 10),
-                  //
-                  // /// sizes
-                  // const _TitleTextWidget(title: 'Size'),
-                  // Wrap(
-                  //   spacing: 8,
-                  //   runSpacing: 8,
-                  //   children: List.generate(
-                  //     variantListByColor.length,
-                  //     (index) => SelectableContainer(
-                  //       onTap: () {
-                  //         variantController
-                  //             .updateVariant(variantListByColor[index]);
-                  //
-                  //         if (variantController.selectedVariant!.stockQty! <
-                  //             1) {
-                  //           variantController.updateQuantity(0);
-                  //         } else {
-                  //           variantController.updateQuantity(1);
-                  //         }
-                  //       },
-                  //       isSelected: variantController.selectedVariant ==
-                  //           variantListByColor[index],
-                  //       child: Text(
-                  //         '${variantListByColor[index].size}',
-                  //         style: context.appTextTheme.bodyMedium?.copyWith(
-                  //           color: variantController.selectedVariant ==
-                  //                   variantListByColor[index]
-                  //               ? kWhite
-                  //               : kBlackLight,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                  //
-                  // /// divider
-                  // const KDivider(height: 20),
-                  //
-                  // if (variantController.selectedVariant != null) ...[
-                  //   _TitleTextWidget(
-                  //       title:
-                  //           'Stock Qty: ${variantController.selectedVariant!.stockQty ?? 0}'),
-                  //   const SizedBox(height: 8),
-                  // ],
-                  //
-                  // /// quantity
-                  // const _TitleTextWidget(title: 'Quantity'),
-                  // SizedBox(
-                  //   width: 120,
-                  //   child: IncrementDecrementWidget(
-                  //     value: '${variantController.quantity}',
-                  //     onIncrement: () {
-                  //       if (variantController.selectedVariant != null) {
-                  //         if (variantController.quantity <
-                  //             variantController.selectedVariant!.stockQty!) {
-                  //           variantController
-                  //               .updateQuantity(variantController.quantity + 1);
-                  //         } else {
-                  //           SnackBarService.showSnackBar(
-                  //             message: 'No more products!',
-                  //             bgColor: failedColor,
-                  //           );
-                  //         }
-                  //       } else {
-                  //         SnackBarService.showSnackBar(
-                  //           message: 'Please select sizes!',
-                  //           bgColor: failedColor,
-                  //         );
-                  //       }
-                  //     },
-                  //     onDecrement: () {
-                  //       if (variantController.quantity > 1) {
-                  //         variantController
-                  //             .updateQuantity(variantController.quantity - 1);
-                  //       }
-                  //     },
-                  //   ),
-                  // ),
-                  //
-                  // /// shipping
-                  // const _ProductShippingWidget(
-                  //   hideSelectButton: true,
-                  // ),
-                  //
-                  // /// buttons
-                  // const SizedBox(height: 5),
-                  // KButton(
-                  //   onPressed: () {
-                  //     if (variantController.selectedVariant == null) {
-                  //       SnackBarService.showSnackBar(
-                  //         message: 'Please select sizes!',
-                  //         bgColor: failedColor,
-                  //       );
-                  //     } else if (variantController.selectedVariant!.stockQty! <
-                  //         1) {
-                  //       SnackBarService.showSnackBar(
-                  //         message: 'Invalid Quantity!',
-                  //         bgColor: failedColor,
-                  //       );
-                  //     } else {
-                  //       onPressed(
-                  //         variantController.quantity,
-                  //         variantController.selectedVariant!,
-                  //       );
-                  //
-                  //       /// to clear all variant data
-                  //       variantController.clearAll();
-                  //
-                  //       /// close the bottom sheet
-                  //       Navigator.pop(context);
-                  //     }
-                  //   },
-                  //   child: Text(
-                  //     buttonName,
-                  //     style: context.buttonTextStyle,
-                  //   ),
-                  // )
+                  const _TitleTextWidget(title: 'Color'),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: List.generate(
+                      colorList.length,
+                      (index) => SelectableContainer(
+                        onTap: () {
+                          variantController.updateColor(colorList[index]);
+                          variantController.updateVariant(null);
+                          variantController.updateQuantity(0);
+                          variantListByColor = getSizesByColor(
+                            productDetails: productDetails,
+                            selectedColor: variantController.selectedColor!,
+                          );
+                        },
+                        isDefaultSizeEnabled: true,
+                        isSelected: variantController.selectedColor == colorList[index],
+                        child: Text(
+                          colorList[index],
+                          style: context.appTextTheme.bodyMedium?.copyWith(
+                            color: variantController.selectedColor ==
+                                    colorList[index]
+                                ? kWhite
+                                : kBlackLight,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  /// sizes
+                  const _TitleTextWidget(title: 'Size'),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: List.generate(
+                      variantListByColor.length,
+                      (index) => SelectableContainer(
+                        onTap: () {
+                          variantController
+                              .updateVariant(variantListByColor[index]);
+
+                          if (variantController.selectedVariant!.stockQty! <
+                              1) {
+                            variantController.updateQuantity(0);
+                          } else {
+                            variantController.updateQuantity(1);
+                          }
+                        },
+                        isDefaultSizeEnabled: true,
+                        isSelected: variantController.selectedVariant ==
+                            variantListByColor[index],
+                        child: Text(
+                          '${variantListByColor[index].size}',
+                          style: context.appTextTheme.bodyMedium?.copyWith(
+                            color: variantController.selectedVariant ==
+                                    variantListByColor[index]
+                                ? kWhite
+                                : kBlackLight,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  /// divider
+                  const KDivider(height: 20),
+
+                  if (variantController.selectedVariant != null) ...[
+                    _TitleTextWidget(
+                      title:
+                          'Stock Qty: ${variantController.selectedVariant!.stockQty ?? 0}',
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+
+                  /// quantity
+                  const _TitleTextWidget(title: 'Quantity'),
+                  SizedBox(
+                    width: 120,
+                    child: IncrementDecrementWidget(
+                      value: '${variantController.quantity}',
+                      onIncrement: () {
+                        if (variantController.selectedVariant != null) {
+                          if (variantController.quantity <
+                              variantController.selectedVariant!.stockQty!) {
+                            variantController
+                                .updateQuantity(variantController.quantity + 1);
+                          } else {
+                            SnackBarService.showSnackBar(
+                              message: 'No more products!',
+                              bgColor: failedColor,
+                            );
+                          }
+                        } else {
+                          SnackBarService.showSnackBar(
+                            message: 'Please select sizes!',
+                            bgColor: failedColor,
+                          );
+                        }
+                      },
+                      onDecrement: () {
+                        if (variantController.quantity > 1) {
+                          variantController
+                              .updateQuantity(variantController.quantity - 1);
+                        }
+                      },
+                    ),
+                  ),
+
+                  /// shipping
+                  const _ProductShippingWidget(
+                    hideSelectButton: true,
+                  ),
+
+                  /// buttons
+                  const SizedBox(height: 5),
+                  KButton(
+                    onPressed: () {
+                      if (variantController.selectedVariant == null) {
+                        SnackBarService.showSnackBar(
+                          message: 'Please select sizes!',
+                          bgColor: failedColor,
+                        );
+                      } else if (variantController.selectedVariant!.stockQty! <
+                          1) {
+                        SnackBarService.showSnackBar(
+                          message: 'Invalid Quantity!',
+                          bgColor: failedColor,
+                        );
+                      } else {
+                        onPressed(
+                          variantController.quantity,
+                          variantController.selectedVariant!,
+                        );
+
+                        /// to clear all variant data
+                        variantController.clearAll();
+
+                        /// close the bottom sheet
+                        Navigator.pop(context);
+                      }
+                    },
+                    child: Text(
+                      buttonName,
+                      style: context.buttonTextStyle(),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -246,10 +255,9 @@ class _ImageAndPrices extends StatelessWidget {
   final VariantSelectorBottomSheetController variantController;
 
   const _ImageAndPrices({
-    Key? key,
     required this.productDetails,
     required this.variantController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -367,9 +375,8 @@ class _ProductShippingWidget extends StatelessWidget {
   final bool hideSelectButton;
 
   const _ProductShippingWidget({
-    Key? key,
     this.hideSelectButton = false,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -445,9 +452,8 @@ class _TitleTextWidget extends StatelessWidget {
   final String title;
 
   const _TitleTextWidget({
-    Key? key,
     required this.title,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -457,7 +463,7 @@ class _TitleTextWidget extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: context.appTextTheme.bodyMedium?.copyWith(
+        style: context.titleSmall(
           fontWeight: FontWeight.w600,
         ),
       ),

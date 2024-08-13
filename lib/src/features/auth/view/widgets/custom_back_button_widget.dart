@@ -4,7 +4,7 @@ import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 
 class CustomBackButton extends StatelessWidget {
-  const CustomBackButton({Key? key}) : super(key: key);
+  const CustomBackButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +14,12 @@ class CustomBackButton extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: kWhite,
-          shape: BoxShape.circle,
+          borderRadius: BorderRadius.circular(4),
           boxShadow: [
             KBoxShadow.itemShadow(),
           ],
         ),
-        child: Icon(
+        child: const Icon(
             Icons.arrow_back_ios_new,
             color: kBlackLight,
             size: 20

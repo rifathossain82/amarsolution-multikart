@@ -1,14 +1,15 @@
 import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
+import 'package:amarsolution_multikart/src/core/utils/color.dart';
+import 'package:amarsolution_multikart/src/features/auth/view/widgets/auth_back_button.dart';
+import 'package:amarsolution_multikart/src/features/auth/view/widgets/auth_circle_shape.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
 import 'package:amarsolution_multikart/src/core/helpers/validators.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_button.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_button_progress_indicator.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_logo.dart';
 import 'package:amarsolution_multikart/src/core/widgets/k_text_form_field_builder_with_title.dart';
 import 'package:amarsolution_multikart/src/features/auth/controller/auth_controller.dart';
-import 'package:amarsolution_multikart/src/features/auth/view/widgets/custom_back_button_widget.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -37,17 +38,12 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            _loginPageBody(),
-            const Positioned(
-              top: 15,
-              left: 15,
-              child: CustomBackButton(),
-            ),
-          ],
-        ),
+      body: Stack(
+        children: [
+          _loginPageBody(),
+          const AuthBackButton(),
+          const AuthCircleShape(),
+        ],
       ),
     );
   }
@@ -59,25 +55,28 @@ class _LoginPageState extends State<LoginPage> {
         margin: EdgeInsets.only(
           left: 15,
           right: 15,
-          top: context.screenHeight * 0.08,
-          bottom: context.screenHeight * 0.03,
+          top: context.screenHeight * 0.15,
         ),
         child: Form(
           key: loginFormKey,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              /// logo and welcome text
-              const KLogo(),
+              Text(
+                "Hey,\nLogin Now",
+                style: context.titleLarge(fontSize: 24, color: kGrey),
+              ),
+
               Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
+                padding: const EdgeInsets.only(
+                  top: 12,
+                  right: 150,
                 ),
                 child: Text(
                   'Become an ideal member by just verifying your phone number',
-                  textAlign: TextAlign.center,
-                  style: context.appTextTheme.bodySmall,
+                  textAlign: TextAlign.start,
+                  style: context.bodyMedium(),
                 ),
               ),
 
@@ -92,7 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                   return authController.isLoginLoading.value
                       ? const KButtonProgressIndicator()
                       : Text(
-                          'Send OTP',
+                          'send otp'.toUpperCase(),
                           style: context.buttonTextStyle(),
                         );
                 }),
