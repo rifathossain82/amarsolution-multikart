@@ -54,9 +54,8 @@ class _HomepageState extends State<Homepage> {
                       title: const _AppBarTitleWidget(),
                       actions: const _AppBarActions().buildActions(context),
                       bottom: AppBar(
-                        // Prevents the back button from appearing
                         automaticallyImplyLeading: false,
-                        toolbarHeight: 75,
+                        toolbarHeight: 85,
                         title: TabBar(
                           indicatorColor: kPrimaryColor,
                           labelColor: kPrimaryColor,
@@ -248,8 +247,8 @@ class _TabItem extends StatelessWidget {
         CachedNetworkImageBuilder(
           imgURl: category.image ?? '',
           borderRadius: BorderRadius.circular(100),
-          height: 45,
-          width: 45,
+          height: 55,
+          width: 55,
           fit: BoxFit.cover,
         ),
         const SizedBox(height: 2),
@@ -258,7 +257,9 @@ class _TabItem extends StatelessWidget {
               ? category.categoryName.toString().substring(0, 6)
               : category.categoryName.toString(),
           maxLines: 1,
-          style: context.bodyMedium(),
+          style: context.bodyMedium(
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ],
     );
