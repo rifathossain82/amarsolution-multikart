@@ -1,9 +1,9 @@
+import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
 import 'package:amarsolution_multikart/src/core/utils/app_constants.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
 import 'package:amarsolution_multikart/src/core/widgets/app_expansion_tile.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 import 'package:amarsolution_multikart/src/features/cart/model/cart_model.dart';
 import 'package:amarsolution_multikart/src/features/checkout/view/widgets/checkout_product_item_widget.dart';
 
@@ -14,24 +14,23 @@ class CheckoutProductsWidget extends StatelessWidget {
   final ValueChanged<bool> onExpansionChanged;
 
   const CheckoutProductsWidget({
-    Key? key,
+    super.key,
     required this.cartList,
     required this.totalAmount,
     required this.tileIndex,
     required this.onExpansionChanged,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
       decoration: BoxDecoration(
         color: kWhite,
         borderRadius: BorderRadius.circular(4),
-        boxShadow: [
-          KBoxShadow.itemShadow(),
-        ],
       ),
       child: Theme(
         data: Theme.of(context).copyWith(
@@ -40,9 +39,7 @@ class CheckoutProductsWidget extends StatelessWidget {
         child: AppExpansionTile(
           title: Text(
             'Products',
-            style: context.appTextTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.bold,
-            ),
+            style: context.titleMedium(),
           ),
           trailing: Icon(
             tileIndex == 1

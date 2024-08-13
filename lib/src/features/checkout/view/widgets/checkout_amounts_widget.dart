@@ -28,17 +28,22 @@ class CheckoutAmountsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 8,
+      ),
       decoration: BoxDecoration(
         color: kWhite,
         borderRadius: BorderRadius.circular(4),
-        boxShadow: [
-          KBoxShadow.itemShadow(),
-        ],
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Text(
+            "Order Details:",
+            style: context.titleMedium(),
+          ),
+          const SizedBox(height: 12),
           RowText(
             title: 'Sub Total:',
             value: '${AppConstants.currencySymbol} $subtotal',
@@ -68,11 +73,10 @@ class CheckoutAmountsWidget extends StatelessWidget {
                   : ElevatedButton(
                       onPressed: onTapAddCoupon,
                       style: const ButtonStyle(
-                        visualDensity: VisualDensity(
-                          horizontal: VisualDensity.minimumDensity,
-                          vertical: VisualDensity.minimumDensity,
-                        )
-                      ),
+                          visualDensity: VisualDensity(
+                        horizontal: VisualDensity.minimumDensity,
+                        vertical: VisualDensity.minimumDensity,
+                      )),
                       child: Text(
                         'Add',
                         style: context.buttonTextStyle(),

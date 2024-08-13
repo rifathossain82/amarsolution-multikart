@@ -1,10 +1,9 @@
+import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
+import 'package:amarsolution_multikart/src/core/utils/asset_path.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:amarsolution_multikart/src/core/enums/app_enum.dart';
-import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
-import 'package:amarsolution_multikart/src/core/services/local_storage.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 import 'package:amarsolution_multikart/src/features/checkout/controller/checkout_controller.dart';
 
 class CheckoutShippingInfoWidget extends StatelessWidget {
@@ -13,106 +12,85 @@ class CheckoutShippingInfoWidget extends StatelessWidget {
   final VoidCallback onTapShippingInfo;
 
   const CheckoutShippingInfoWidget({
-    Key? key,
+    super.key,
     required this.checkoutController,
     required this.onTapPhoneNumber,
     required this.onTapShippingInfo,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
       return Container(
-        margin: const EdgeInsets.all(8),
         padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: kWhite,
-          borderRadius: BorderRadius.circular(4),
-          boxShadow: [
-            KBoxShadow.itemShadow(),
-          ],
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Shipping Information',
-              style: context.appTextTheme.titleSmall?.copyWith(
-                fontWeight: FontWeight.bold,
+        color: kWhite,
+        child: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: kPrimaryColor.withOpacity(0.01),
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(
+              color: kPrimaryColor,
+              width: 1,
+            ),
+          ),
+          child: ListTile(
+            dense: true,
+            visualDensity: const VisualDensity(
+              horizontal: VisualDensity.minimumDensity,
+              vertical: VisualDensity.minimumDensity,
+            ),
+            contentPadding: EdgeInsets.zero,
+            horizontalTitleGap: 10,
+            leading: const Icon(
+              Icons.local_shipping,
+              size: 30,
+              color: kPrimaryColor,
+            ),
+            title: Text(
+              checkoutController.userName.value.isEmpty
+                  ? 'Please set your name.'
+                  : checkoutController.userName.value,
+              style: context.titleMedium(
+                color: kPrimaryColor,
               ),
             ),
-            ListTile(
-              dense: true,
-              contentPadding: EdgeInsets.zero,
-              horizontalTitleGap: 0,
-              visualDensity: VisualDensity.comfortable,
-              leading: Icon(
-                Icons.phone,
-                size: 18,
-                color: kBlackLight,
-              ),
-              title: Text(
-                checkoutController.phoneNumber.value.isEmpty
-                    ? 'Enter phone number'
-                    : checkoutController.phoneNumber.value,
-                style: context.appTextTheme.titleSmall,
-              ),
-              trailing:
-                  LocalStorage.getData(key: LocalStorageKey.isGuestCheckout) ==
-                          true
-                      ? IconButton(
-                          onPressed: onTapPhoneNumber,
-                          icon: Icon(
-                            Icons.arrow_forward_ios_rounded,
-                            size: 18,
-                            color: kBlackLight,
-                          ),
-                        )
-                      : const SizedBox.shrink(),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  checkoutController.phoneNumber.value.isEmpty
+                      ? 'Enter phone number'
+                      : checkoutController.phoneNumber.value,
+                  style: context.bodyLarge(color: kPrimaryColor),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  checkoutController.addressLine.value.isEmpty &&
+                          checkoutController.city.value.isEmpty
+                      ? 'Please set your address.'
+                      : '${checkoutController.addressLine.value}, ${checkoutController.city.value}',
+                  style: context.bodyMedium(),
+                ),
+                Text(
+                  checkoutController.isShippingInsideDhaka.value
+                      ? 'Inside Dhaka'
+                      : 'Outside Dhaka',
+                  style: context.bodyMedium(),
+                ),
+              ],
             ),
-            const Divider(height: 0),
-            ListTile(
-              dense: true,
-              contentPadding: EdgeInsets.zero,
-              horizontalTitleGap: 0,
-              visualDensity: VisualDensity.comfortable,
-              leading: Icon(
-                Icons.local_shipping,
-                size: 18,
-                color: kBlackLight,
-              ),
-              title: Text(
-                checkoutController.userName.value.isEmpty
-                    ? 'Please set your name.'
-                    : checkoutController.userName.value,
-                style: context.appTextTheme.titleSmall,
-              ),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    checkoutController.addressLine.value.isEmpty &&
-                            checkoutController.city.value.isEmpty
-                        ? 'Please set your address.'
-                        : '${checkoutController.addressLine.value}, ${checkoutController.city.value}',
-                  ),
-                  Text(
-                    checkoutController.isShippingInsideDhaka.value
-                        ? 'Inside Dhaka'
-                        : 'Outside Dhaka',
-                  ),
-                ],
-              ),
-              trailing: IconButton(
-                onPressed: onTapShippingInfo,
-                icon: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  size: 18,
-                  color: kBlackLight,
+            trailing: IconButton(
+              onPressed: onTapShippingInfo,
+              icon: SvgPicture.asset(
+                AssetPath.editIcon,
+                colorFilter: const ColorFilter.mode(
+                  kPrimaryColor,
+                  BlendMode.srcIn,
                 ),
               ),
             ),
-          ],
+          ),
         ),
       );
     });

@@ -49,6 +49,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kGreyLight,
       appBar: AppBar(
         title: const Text('Confirm Order'),
       ),
@@ -101,6 +102,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   onTapShippingInfo: _buildShippingInfoBottomSheet,
                   onTapPhoneNumber: _buildGuestPhoneNumberBottomSheet,
                 ),
+                const SizedBox(height: 12),
                 CheckoutProductsWidget(
                   tileIndex: checkoutController.productsTileIndex.value,
                   cartList: cartController.cartList,
@@ -113,6 +115,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     }
                   },
                 ),
+                const SizedBox(height: 12),
                 CheckoutAmountsWidget(
                   subtotal: cartController.totalCartAmount,
                   shippingFee: shippingFee,
@@ -121,6 +124,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                   totalWithDiscount: totalWithDiscount,
                   grandTotal: grandTotal,
                 ),
+                const SizedBox(height: 12),
                 CheckoutPaymentMethodWidget(
                   shopInfoController: shopInfoController,
                   checkoutController: checkoutController,

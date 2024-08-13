@@ -1,8 +1,8 @@
+import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
 import 'package:amarsolution_multikart/src/core/utils/color.dart';
-import 'package:amarsolution_multikart/src/core/widgets/k_box_shadow.dart';
 import 'package:amarsolution_multikart/src/core/widgets/radio_list_tile_widget.dart';
 import 'package:amarsolution_multikart/src/features/checkout/controller/checkout_controller.dart';
 import 'package:amarsolution_multikart/src/features/shop_info/controller/shop_info_controller.dart';
@@ -13,10 +13,10 @@ class CheckoutPaymentMethodWidget extends StatelessWidget {
   final CheckoutController checkoutController;
 
   const CheckoutPaymentMethodWidget({
-    Key? key,
+    super.key,
     required this.shopInfoController,
     required this.checkoutController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,23 +27,20 @@ class CheckoutPaymentMethodWidget extends StatelessWidget {
         PaymentMethodModel paymentMethods =
             shopInfoController.paymentMethods.value!;
         return Container(
-          margin: const EdgeInsets.all(8),
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
           decoration: BoxDecoration(
             color: kWhite,
             borderRadius: BorderRadius.circular(4),
-            boxShadow: [
-              KBoxShadow.itemShadow(),
-            ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Payment Method (Required)',
-                style: context.appTextTheme.titleSmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                ),
+                style: context.titleMedium(),
               ),
               const SizedBox(height: 4),
               if (paymentMethods.cashOnDelivery != null &&
