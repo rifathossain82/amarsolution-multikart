@@ -14,11 +14,11 @@ class ProductPage extends StatefulWidget {
   final DateTime? expireTime;
 
   const ProductPage({
-    Key? key,
+    super.key,
     required this.title,
     required this.api,
     this.expireTime,
-  }) : super(key: key);
+  });
 
   @override
   State<ProductPage> createState() => _ProductPageState();

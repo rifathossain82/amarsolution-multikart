@@ -1,5 +1,5 @@
+import 'package:amarsolution_multikart/src/features/auth/view/pages/login_page.dart';
 import 'package:amarsolution_multikart/src/features/dashboard/view/pages/dashboard_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 class RouteGenerator {
@@ -15,7 +15,7 @@ class RouteGenerator {
     ),
     GetPage(
       name: RouteGenerator.login,
-      page: () => Container(),
+      page: () => const LoginPage(),
     ),
   ];
 }

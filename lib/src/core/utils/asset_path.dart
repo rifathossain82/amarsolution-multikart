@@ -6,6 +6,7 @@ class AssetPath{
   static const String placeholder = 'assets/images/placeholder.png';
   static const String menu = 'assets/images/menu.png';
   static const String barcodeReader = 'assets/images/barcode_reader.png';
+  static const String emptyCart = 'assets/images/empty_cart.png';
 
   /// icons
   static const String deleteIcon = 'assets/icons/delete.svg';

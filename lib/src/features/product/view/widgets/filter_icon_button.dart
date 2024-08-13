@@ -23,7 +23,7 @@ class FilterIconButton extends StatelessWidget {
           color: kPrimaryColor,
           borderRadius: BorderRadius.circular(4),
         ),
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(10),
         child: SvgPicture.asset(
           AssetPath.filterIcon,
           alignment: Alignment.center,

@@ -1,4 +1,4 @@
-import 'package:amarsolution_multikart/src/features/category/view/widgets/category_item_widget.dart';
+import 'package:amarsolution_multikart/src/features/category/view/widgets/sub_category_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:amarsolution_multikart/src/features/category/model/category_model.dart';
 
@@ -25,9 +25,9 @@ class _SubCategoryPageState extends State<SubCategoryPage> {
         padding: const EdgeInsets.all(15),
         itemCount: widget.parentCategory.childCategories!.length,
         itemBuilder: (context, index) {
-          return CategoryItemWidget(
+          return SubCategoryItemWidget(
             index: index,
-            category: widget.parentCategory.childCategories![index],
+            subCategory: widget.parentCategory.childCategories![index],
           );
         },
         separatorBuilder: (context, index) => const SizedBox(height: 8),

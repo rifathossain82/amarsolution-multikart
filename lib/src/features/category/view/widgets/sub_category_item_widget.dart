@@ -67,7 +67,7 @@ class SubCategoryItemWidget extends StatelessWidget {
   }
 
   void _onTapCategoryItem() {
-    if (subCategory.childCategories!.isEmpty) {
+    if (subCategory.childCategories == null || subCategory.childCategories!.isEmpty) {
       Get.to(
         () => ProductPageWithSearch(
           title: '${subCategory.categoryName}',

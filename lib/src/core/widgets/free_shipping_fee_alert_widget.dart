@@ -14,39 +14,46 @@ class FreeShippingFeeAlertWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
       padding: const EdgeInsets.symmetric(
-        horizontal: 15,
-        vertical: 20,
+        horizontal: 8,
       ),
-      width: context.screenWidth,
-      decoration: BoxDecoration(
-        color: kPrimaryColor.withOpacity(0.2),
-        borderRadius: BorderRadius.circular(4),
+      decoration: const BoxDecoration(
+        color: kWhite,
       ),
-      child: RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: 'Order above ',
-              style: context.appTextTheme.bodySmall?.copyWith(
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 15,
+          vertical: 20,
+        ),
+        width: context.screenWidth,
+        decoration: BoxDecoration(
+          color: kPrimaryColor.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(4),
+        ),
+        child: RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: 'Order above ',
+                style: context.appTextTheme.bodySmall?.copyWith(
 
+                ),
               ),
-            ),
-            TextSpan(
-              text: '${AppConstants.currencySymbol} $freeShippingFeeLimit ',
-              style: context.appTextTheme.bodySmall?.copyWith(
-                color: kPrimaryColor,
-                fontWeight: FontWeight.bold,
+              TextSpan(
+                text: '${AppConstants.currencySymbol} $freeShippingFeeLimit ',
+                style: context.appTextTheme.bodySmall?.copyWith(
+                  color: kPrimaryColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            TextSpan(
-              text: ' to get free shipping!',
-              style: context.appTextTheme.bodySmall?.copyWith(
+              TextSpan(
+                text: ' to get free shipping!',
+                style: context.appTextTheme.bodySmall?.copyWith(
 
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

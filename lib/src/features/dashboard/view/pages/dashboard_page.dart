@@ -1,4 +1,5 @@
 import 'package:amarsolution_multikart/src/core/utils/asset_path.dart';
+import 'package:amarsolution_multikart/src/features/cart/view/pages/cart_page.dart';
 import 'package:amarsolution_multikart/src/features/category/view/pages/category_page.dart';
 import 'package:amarsolution_multikart/src/features/dashboard/model/dashboard_nav_item.dart';
 import 'package:amarsolution_multikart/src/features/home/view/pages/homepage.dart';
@@ -21,7 +22,7 @@ class _DashboardPageState extends State<DashboardPage> {
   final pages = <Widget>[
     const Homepage(),
     const CategoryPage(),
-    Container(),
+    const CartPage(),
     Container(),
     Container(),
   ];

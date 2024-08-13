@@ -1,6 +1,5 @@
 import 'package:amarsolution_multikart/src/core/extensions/text_style_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:amarsolution_multikart/src/core/extensions/build_context_extension.dart';
 import 'package:amarsolution_multikart/src/core/network/api.dart';
@@ -21,17 +20,18 @@ class EmptyCartWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          // SvgPicture.asset(
-          //   AssetPath.emptyCartIcon,
-          //   height: context.screenHeight * 0.27,
-          //   width: context.screenWidth,
-          //   alignment: Alignment.center,
-          // ),
+          Image.asset(
+            AssetPath.emptyCart,
+            height: context.screenHeight * 0.2,
+            width: context.screenWidth,
+            alignment: Alignment.center,
+          ),
+          const SizedBox(height: 15),
           RichText(
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Your Cart is ',
+                  text: 'Whoops!! Cart is ',
                   style: context.appTextTheme.titleLarge?.copyWith(
                     color: kBlackLight,
                     fontWeight: FontWeight.bold,
@@ -53,8 +53,8 @@ class EmptyCartWidget extends StatelessWidget {
               horizontal: 25,
             ),
             child: Text(
-              'Must add items on the cart before you proceed to check out.',
-              style: context.appTextTheme.bodySmall,
+              'Looks like you haven’t added anything to your cart yet. You will find a lot of interesting products on our ‘Shop’ page.',
+              style: context.bodyMedium(),
               textAlign: TextAlign.center,
             ),
           ),
@@ -64,6 +64,7 @@ class EmptyCartWidget extends StatelessWidget {
               Get.to(
                 () => ProductPageWithSearch(
                   api: Api.productList,
+                  title: "Products",
                 ),
               );
             },
@@ -73,7 +74,7 @@ class EmptyCartWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.shopping_bag_outlined,
                   color: kWhite,
                   size: 20,
